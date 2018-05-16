@@ -1,0 +1,11 @@
+{
+  "name": "byprice-reviews-widget",
+  "authors": [
+    "ByPrice"
+  ],
+  "dependencies": {
+    "polymer": "^3.0.2"
+  },
+  "devDependencies": {},
+  "private": true
+}

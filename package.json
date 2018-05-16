@@ -1,0 +1,25 @@
+{
+  "name": "byprice-reviews-widget",
+  "version": "0.0.1",
+  "description": "ByPrice reviews widget",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ByPrice/byprice-reviews-widget.git"
+  },
+  "keywords": [
+    "byprice",
+    "reviews",
+    "rating",
+    "widget"
+  ],
+  "author": "byprice",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ByPrice/byprice-reviews-widget/issues"
+  },
+  "homepage": "https://github.com/ByPrice/byprice-reviews-widget#readme"
+}

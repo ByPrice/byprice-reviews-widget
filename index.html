@@ -1,0 +1,316 @@
+<!--
+@license
+Copyright (c) 2017 ByPrice
+-->
+
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Polymer Starter Kit">
+  <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=3, user-scalable=0">
+  <title>ByPrice</title>
+  <meta name="description" content="My App description">
+
+  <link rel="icon" href="/images/favicon.ico">
+
+  <!-- See https://goo.gl/OOhYW5 -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- See https://goo.gl/qRE0vM -->
+  <meta name="theme-color" content="#3f51b5">
+
+  <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="My App">
+
+  <!-- Add to homescreen for Safari on iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="white">
+  <meta name="apple-mobile-web-app-title" content="ByPrice">
+
+  <!-- Homescreen icons -->
+  <link rel="apple-touch-icon" href="/images/manifest/icon-48x48.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/manifest/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/images/manifest/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/manifest/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/images/manifest/icon-192x192.png">
+
+  <!-- Tile icon for Windows 8 (144x144 + tile color) -->
+  <meta name="msapplication-TileImage" content="/images/manifest/icon-144x144.png">
+  <meta name="msapplication-TileColor" content="#3f51b5">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700|Roboto:300,400,700" rel="stylesheet">
+
+  <script>
+    window.__config = {
+      'mapsKey': 'AIzaSyChec1dgz7d4HlzrQbjD6Kd5RdyHEU9EHM',
+      'radius': 10,
+      'maxRadius': 800,
+      'historyDays': 12,
+      'facebookId': '112011776086067',
+      'site': 'http://dev.byprice.com',
+      'twitterAccount': 'byprice_',
+      'apiEndPointApiary': 'https://private-730c8-bypriceuserdata.apiary-mock.com/public',
+      'apiEndPoint': 'https://gate.byprice.com/public',
+      'apiWrapEndpoint': 'http://dev.byprice.com/api',
+      'contentEndPoint': 'https://byprice.com/content/components',
+      'frontEndPoint': 'https://app.byprice.com/development/',
+      'ads': {
+        'search': true,
+        'product': true
+      }
+    };
+
+  </script>
+
+  <script>
+    window.dataLayer = [];
+    window.experiments = {};
+
+  </script>
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({
+        'gtm.start': new Date().getTime(),
+        'event': 'gtm.js'
+      });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+      j.async = true;
+      j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-T9S98MD');
+
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <script>
+    // Setup Polymer options
+    window.Polymer = {
+      dom: 'shadow',
+      lazyRegister: true
+    };
+
+    // Load webcomponentsjs polyfill if browser does not support native
+    // Web Components
+    (function () {
+      'use strict';
+
+      var onload = function () {
+        // For native Imports, manually fire WebComponentsReady so user code
+        // can use the same code path for native and polyfill'd imports.
+        if (!window.HTMLImports) {
+          document.dispatchEvent(
+            new CustomEvent('WebComponentsReady', {
+              bubbles: true
+            })
+          );
+        }
+      };
+
+      var webComponentsSupported = (
+        'registerElement' in document &&
+        'import' in document.createElement('link') &&
+        'content' in document.createElement('template')
+      );
+
+      if (!webComponentsSupported) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+        script.onload = onload;
+        document.head.appendChild(script);
+      } else {
+        onload();
+      }
+    })();
+
+    // Load pre-caching Service Worker
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/service-worker.js');
+      });
+    }
+
+  </script>
+
+
+  <style>
+    html {
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.2;
+      width: 100vw;
+      background-color: #f0f0f0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
+      overflow-x: hidden;
+    }
+
+    body.disable-scroll {
+      overflow-y: hidden;
+    }
+
+    a,
+    a:hover,
+    a:visited {
+      color: #383838;
+      text-decoration: none;
+    }
+
+    #Splash {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      z-index: 99;
+      display: none;
+    }
+
+    #Splash .wrapper {
+      width: 100%;
+      height: 100%;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+    }
+
+    #Splash .iso,
+    #Splash .logo {
+      width: calc(100% - 30px);
+      max-width: 250px;
+      margin: 0 auto;
+      display: block;
+      opacity: 0;
+      display: none;
+    }
+
+    #Splash .iso {
+      max-width: 130px;
+    }
+
+
+    #Splash.hide {
+      opacity: 0;
+    }
+
+    #Splash.remove {
+      display: none;
+    }
+
+    .fx {
+      width: 270px;
+      margin: 0 auto;
+    }
+
+    .fx img {
+      width: 100%;
+      display: block;
+    }
+
+
+    #Splash .message {
+      color: #A33089;
+      font-size: 16px;
+      width: 100%;
+      text-align: center;
+      display: block;
+      margin: 15px auto;
+      opacity: 0;
+      -webkit-animation: flash 1250ms infinite linear 50ms alternate;
+      animation: flash 1250ms infinite linear 50ms alternate;
+    }
+
+
+    @-webkit-keyframes flash {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes flash {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9S98MD" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <script>
+    (function (){
+      var Splash = document.getElementById('Splash');
+      // Splash.style.display = 'block';
+    })();
+  </script>
+  <!-- End - Splash -->
+
+  <link rel="import" async href="/src/byprice-reviews-widget.html">
+  <byprice-reviews-widget></byprice-reviews-widget>
+
+  <script>
+    window.fbAsyncInit = function () {
+      window.FB.init({
+        appId: '112011776086067',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v2.9'
+      });
+      window.FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) {
+        return;
+      }
+      js = d.createElement(s);
+      js.id = id;
+      js.src = '//connect.facebook.net/en_US/sdk.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+  </script>
+
+
+
+</body>
+
+</html>
