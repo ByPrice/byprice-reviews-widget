@@ -58,7 +58,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <div class="summary-reviews">
           [[summaryReviews]] Reseñas
         </div>
-        <div class="summary-stories">[[summaryStories]] Historias</div>
+        <template is="dom-if" if="[[summaryStories]]">
+          <div class="summary-stories">[[summaryStories]] Historias</div>
+        </template>
       </header>
       <!-- End - Summary -->
 
@@ -71,10 +73,17 @@ Copyright (c) 2017 ByPrice All rights reserved.
       </div>
       <!-- End - reviews -->
 
+      <!--Write a review -->
       <div class="write-a-review">
         <byprice-write-a-review on-submit-review="_onSubmitReview"></byprice-write-a-review>
       </div>
+      <!--End - Write a review -->
 
+      <!-- Check sign-->
+      <template is="dom-if" if="[[showSign]]">
+
+      </template>
+      <!-- End - Check sign-->
     </div>
 
   </template>
@@ -112,7 +121,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
           },
           summaryStories: {
             type: Number,
-            value: 10
+            value: 0
           },
           rating: {
             type: Object,

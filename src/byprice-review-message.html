@@ -49,10 +49,11 @@ Copyright (c) 2017 ByPrice All rights reserved.
       .message-wrapper {
         margin-top: 20px;
         padding: 15px 20px;
-        background-color: #f7f7f7;
+        background-color: #f5f5f5;
         position: relative;
         border-radius: 5px;
         box-shadow: 0 6px 10px -3px rgba(0, 0, 0, .18);
+        border: 1px solid #dadada;
       }
 
       .message-tail {
@@ -63,7 +64,22 @@ Copyright (c) 2017 ByPrice All rights reserved.
         top: -15px;
         left: 15px;
         transform: rotate(90deg);
-        fill: #f7f7f7;
+      }
+
+      .message-tail svg {
+        fill: #f5f5f5;
+        stroke: #dadada;
+        stroke-width: 1px;
+      }
+
+      .message-tail::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 15px;
+        width: 3px;
+        height: 20px;
+        background: #f5f5f5;
       }
 
       .message {
@@ -72,6 +88,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       .date {
+        font-size: 14px;
         color: #989898;
       }
 
@@ -80,7 +97,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         color: #989898;
       }
 
-      .message-likes  >div {
+      .message-likes>div {
         margin: 0 10px 0 0;
       }
 
@@ -129,8 +146,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
       </div>
       <div class="message-wrapper">
         <i class="message-tail">
-          <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
+            style="enable-background:new 0 0 24 24;" xml:space="preserve">
             <path d="M20.4,2.3C16.8,8,9.7,10.4,3.6,7.7c0,0,0,0,0,0c1,5.1,4.7,9.9,10.2,12.4c2.2,1,4.4,1.5,6.6,1.6V2.3z" />
           </svg>
         </i>
@@ -140,8 +157,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <div class="message-likes flex flex-v-center">
           <div class="like-wrapper">
             <i class="like">
-              <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
+                style="enable-background:new 0 0 24 24;" xml:space="preserve">
                 <g id="thumbup">
                   <path d="M11.5,21.8c-2.1,0.4-5.8,0.4-6.9,0c-0.7-0.4-1.3-0.9-1.8-1.6c-0.8-1.2-1.1-2.6-1.2-4c-0.1-1.7,0.1-3.3,0.6-4.9
                c0.1-0.5,0.4-1,0.9-1.3C3.5,9.7,4.3,9.6,5,9.5c1.2,0,2.4,0.2,3.6,0.5c-0.7-0.8-1-1.9-1.2-3c-0.1-1-0.1-2.1,0-3.1
@@ -155,8 +172,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
           </div>
           <div class="dislike-wrapper">
             <i class="dislike">
-              <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
+                style="enable-background:new 0 0 24 24;" xml:space="preserve">
                 <g id="thumbup">
                   <path d="M11.5,21.8c-2.1,0.4-5.8,0.4-6.9,0c-0.7-0.4-1.3-0.9-1.8-1.6c-0.8-1.2-1.1-2.6-1.2-4c-0.1-1.7,0.1-3.3,0.6-4.9
                      c0.1-0.5,0.4-1,0.9-1.3C3.5,9.7,4.3,9.6,5,9.5c1.2,0,2.4,0.2,3.6,0.5c-0.7-0.8-1-1.9-1.2-3c-0.1-1-0.1-2.1,0-3.1
