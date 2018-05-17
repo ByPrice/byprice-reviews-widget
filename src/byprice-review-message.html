@@ -1,0 +1,263 @@
+<!--
+@license
+Copyright (c) 2017 ByPrice All rights reserved.
+-->
+
+<!-- Third party components -->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
+<!-- End - Third party components -->>
+
+<!-- Our Components -->
+<link rel="import" href="./byprice-reviews-widget-styles.html">
+<link rel="import" href="./byprice-rating-star.html">
+<!-- End - Our Components -->
+
+<dom-module id="byprice-review-message">
+  <template>
+    <style include="byprice-reviews-widget-styles">
+      :host {
+        margin: 30px 0;
+        display: block;
+      }
+
+      .wrapper {
+        background: transparent
+      }
+
+      .user figure {
+        width: 50px;
+        height: 50px;
+        margin: 0 5px 0 0;
+        color: white;
+        border-radius: 50%;
+        background: #E86D9D;
+        overflow: hidden;
+      }
+
+      .picture {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+      }
+
+      .message-wrapper {
+        margin-top: 20px;
+        padding: 15px 20px;
+        background-color: #f7f7f7;
+        position: relative;
+        border-radius: 5px;
+        box-shadow: 0 6px 10px -3px rgba(0, 0, 0, .18);
+      }
+
+      .message-tail {
+        width: 20px;
+        height: 20px;
+        display: block;
+        position: absolute;
+        top: -15px;
+        left: 15px;
+        transform: rotate(90deg);
+        fill: #f7f7f7;
+      }
+
+      .message {
+        font-size: 14px;
+        color: #383838;
+      }
+
+      .date {
+        color: #989898;
+      }
+
+      .message-likes {
+        margin-top: 15px;
+        color: #989898;
+      }
+
+      .message-likes  >div {
+        margin: 0 10px 0 0;
+      }
+
+      .message-likes i {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        cursor: pointer;
+        fill: #989898;
+      }
+
+      .message-likes .dislike {
+        transform: translateY(2px) rotate(180deg);
+      }
+
+      .initials {
+        font-size: 18px;
+        text-align: center;
+        display: inline-block;
+        text-transform: uppercase
+      }
+    </style>
+
+
+    <div class="wrapper">
+      <div class="user flex flex-v-center">
+        <figure class="flex flex-v-center flex-h-center">
+          <template is="dom-if" if="[[userImage]]">
+            <div class="picture" style="background-image: url([[userImage]])"></div>
+          </template>
+          <template is="dom-if" if="[[_invert(userImage)]]">
+            <span class="initials">[[_getFirstLetters(userName)]]</span>
+          </template>
+        </figure>
+        <div>
+          <div>
+            <span>[[userName]]</span>&nbsp;
+            <span class="date">[[date]]</span>
+          </div>
+          <div class="flex flex-v-center">
+            <template is="dom-repeat" items="[[_rating]]">
+              <byprice-rating-star fill="[[item.filled]]"></byprice-rating-star>
+            </template>
+          </div>
+        </div>
+      </div>
+      <div class="message-wrapper">
+        <i class="message-tail">
+          <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+            <path d="M20.4,2.3C16.8,8,9.7,10.4,3.6,7.7c0,0,0,0,0,0c1,5.1,4.7,9.9,10.2,12.4c2.2,1,4.4,1.5,6.6,1.6V2.3z" />
+          </svg>
+        </i>
+        <span class="message">
+          [[message]]
+        </span>
+        <div class="message-likes flex flex-v-center">
+          <div class="like-wrapper">
+            <i class="like">
+              <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+                <g id="thumbup">
+                  <path d="M11.5,21.8c-2.1,0.4-5.8,0.4-6.9,0c-0.7-0.4-1.3-0.9-1.8-1.6c-0.8-1.2-1.1-2.6-1.2-4c-0.1-1.7,0.1-3.3,0.6-4.9
+               c0.1-0.5,0.4-1,0.9-1.3C3.5,9.7,4.3,9.6,5,9.5c1.2,0,2.4,0.2,3.6,0.5c-0.7-0.8-1-1.9-1.2-3c-0.1-1-0.1-2.1,0-3.1
+               c0-0.3,0.1-0.7,0.3-1C8.3,2.1,9.5,1.7,10.1,2s1.2,4.5,3.3,6.6c0.8,0.8,1.7,1.6,2.6,2.2c0.4,2,0.4,4.1,0.1,6.1
+               c-0.1,0.9-0.2,1.8-0.7,2.6c-0.3,0.6-0.9,1.1-1.5,1.4C13.2,21.4,12.3,21.6,11.5,21.8z" />
+                  <path d="M22.5,10.2h-2.8c-1.6,0-2.8,1.3-2.8,2.8v5.7c0,1.6,1.3,2.8,2.8,2.8h2.8V10.2z" />
+                </g>
+              </svg>
+            </i>
+            <span>[[likes]]</span>
+          </div>
+          <div class="dislike-wrapper">
+            <i class="dislike">
+              <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+                <g id="thumbup">
+                  <path d="M11.5,21.8c-2.1,0.4-5.8,0.4-6.9,0c-0.7-0.4-1.3-0.9-1.8-1.6c-0.8-1.2-1.1-2.6-1.2-4c-0.1-1.7,0.1-3.3,0.6-4.9
+                     c0.1-0.5,0.4-1,0.9-1.3C3.5,9.7,4.3,9.6,5,9.5c1.2,0,2.4,0.2,3.6,0.5c-0.7-0.8-1-1.9-1.2-3c-0.1-1-0.1-2.1,0-3.1
+                     c0-0.3,0.1-0.7,0.3-1C8.3,2.1,9.5,1.7,10.1,2s1.2,4.5,3.3,6.6c0.8,0.8,1.7,1.6,2.6,2.2c0.4,2,0.4,4.1,0.1,6.1
+                     c-0.1,0.9-0.2,1.8-0.7,2.6c-0.3,0.6-0.9,1.1-1.5,1.4C13.2,21.4,12.3,21.6,11.5,21.8z" />
+                  <path d="M22.5,10.2h-2.8c-1.6,0-2.8,1.3-2.8,2.8v5.7c0,1.6,1.3,2.8,2.8,2.8h2.8V10.2z" />
+                </g>
+              </svg>
+
+            </i>
+            <span>[[dislikes]]</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * Class for byprice custom <byprice-review-message></<byprice-review-message>
+     */
+    class ByPriceReviewMessage extends Polymer.Element {
+      /**
+       * Returns component name
+       */
+      static get is() {
+        return 'byprice-review-message';
+      }
+
+      /**
+       * Declare properties for the element's public API
+       */
+      static get properties() {
+        return {
+          userImage: {
+            type: String,
+            value: ''
+          },
+          hasStories: {
+            type: Boolean
+          },
+          userName: {
+            type: String
+          },
+          rating: {
+            type: Number,
+            observer: '_watchRating',
+            value: 0
+          },
+          likes: {
+            type: Number,
+            value: 0
+          },
+          dislikes: {
+            type: Number,
+            value: 0
+          },
+          date: {
+            type: String
+          },
+          message: {
+            type: String
+          }
+        }
+      }
+
+      /**
+       * Legacy callback Called after property values are set and local DOM is initialized.
+       */
+      ready() {
+        super.ready();
+      }
+
+      /**
+       * Converts value to Boolean and inverts it
+       * @param {*} value
+       * @return {Boolean}
+       */
+      _invert(value) {
+        return !Boolean(value);
+      }
+
+      _getFirstLetters(name) {
+        if (!name) return;
+        var names = name.split(' ');
+        return names.length > 1 ? names[0][0] + names[1][0] : name.substring(0, 2);
+      }
+
+      _watchRating(rating) {
+        if (!rating) return;
+        var _rating = [];
+        for (var i = 0; i < 5; i++) _rating.push({
+          filled: i < rating
+        })
+        this.set('_rating', _rating);
+      }
+
+    }
+
+    window.customElements.define(ByPriceReviewMessage.is, ByPriceReviewMessage);
+  </script>
+</dom-module>
