@@ -47,6 +47,14 @@ Copyright (c) 2017 ByPrice All rights reserved.
       .view-all span {
         cursor: pointer;
       }
+
+      .forms-wrapper {
+        background: transparent;
+        background: #f0f0f0;
+        padding: 15px 20px;
+        border: 1px solid #dadada;
+        border-radius: 5px;
+      }
     </style>
 
     <!-- Send review -->
@@ -88,17 +96,20 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <span>Ver todas las reseñas</span>
       </div>
 
-      <!--Write a review -->
-      <div class="write-a-review">
-        <byprice-write-a-review on-submit-review="_onSubmitReview"></byprice-write-a-review>
-      </div>
-      <!--End - Write a review -->
+      <div class="forms-wrapper">
+        <!--Write a review -->
+        <div class="write-a-review">
+          <byprice-write-a-review on-submit-review="_onSubmitReview"></byprice-write-a-review>
+        </div>
+        <!--End - Write a review -->
 
-      <!-- Check sign-->
-      <template is="dom-if" if="[[showSign]]">
-        <byprice-reviews-sign-preview></byprice-reviews-sign-preview>
-      </template>
-      <!-- End - Check sign-->
+        <!-- Check sign-->
+        <template is="dom-if" if="[[showSign]]">
+          <byprice-reviews-sign-preview></byprice-reviews-sign-preview>
+        </template>
+        <!-- End - Check sign-->
+
+      </div>
     </div>
 
   </template>
