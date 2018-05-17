@@ -23,14 +23,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
         display: block;
       }
 
-      .wrapper {
-        background: transparent;
-        background: #f0f0f0;
-        padding: 15px 20px;
-        border: 1px solid #dadada;
-        border-radius: 5px;
-      }
-
       .rating {
         margin: 7px 0;
       }
@@ -123,40 +115,36 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
     </style>
 
-
-    <div class="wrapper">
-      <form id="Form">
-        <div class="rating flex flex-v-center">
-          <h3>Calificación: </h3>
-          <div class="rating-stars flex flex-v-center" on-mouseleave="_resetStars">
-            <template is="dom-repeat" items="[[stars]]">
-              <byprice-rating-star on-mouseover="_onHoverStar" on-tap="_onTapStar" fill="[[item.filled]]"></byprice-rating-star>
-            </template>
-          </div>
-          <template is="dom-if" if="[[errors.rating]]">
-            <div class="error">Debes seleccionar al menos 1 estrella</div>
+    <form id="Form">
+      <div class="rating flex flex-v-center">
+        <h3>Calificación: </h3>
+        <div class="rating-stars flex flex-v-center" on-mouseleave="_resetStars">
+          <template is="dom-repeat" items="[[stars]]">
+            <byprice-rating-star on-mouseover="_onHoverStar" on-tap="_onTapStar" fill="[[item.filled]]"></byprice-rating-star>
           </template>
         </div>
-        <div class="flex flex-v-center">
-          <textarea placeholder="Escribe tu reseña" id="Review" on-change="_onChangeMessage"></textarea>
-          <button class="flex flex-v-center flex-h-center" type="submit">
-            <i>
-              <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
-                <path id="send" d="M21.9,1.9c0.3,0.2,0.4,0.4,0.3,0.7l-2.9,17.6c0,0.2-0.2,0.4-0.4,0.5c-0.1,0.1-0.2,0.1-0.4,0.1
+        <template is="dom-if" if="[[errors.rating]]">
+          <div class="error">Debes seleccionar al menos 1 estrella</div>
+        </template>
+      </div>
+      <div class="flex flex-v-center">
+        <textarea placeholder="Escribe tu reseña" id="Review" on-change="_onChangeMessage"></textarea>
+        <button class="flex flex-v-center flex-h-center" type="submit">
+          <i>
+            <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+              <path id="send" d="M21.9,1.9c0.3,0.2,0.4,0.4,0.3,0.7l-2.9,17.6c0,0.2-0.2,0.4-0.4,0.5c-0.1,0.1-0.2,0.1-0.4,0.1
                   c-0.1,0-0.2,0-0.3-0.1l-5.2-2.1L10.4,22c-0.1,0.2-0.3,0.3-0.6,0.3c-0.1,0-0.2,0-0.3,0c-0.1-0.1-0.3-0.1-0.3-0.3
                   c-0.1-0.1-0.1-0.3-0.1-0.4v-4L19,5.4L6.7,16l-4.5-1.9c-0.3-0.1-0.4-0.3-0.5-0.6c0-0.3,0.1-0.5,0.4-0.7l19-11
                   c0.1-0.1,0.2-0.1,0.4-0.1C21.7,1.8,21.8,1.8,21.9,1.9z" />
-              </svg>
-            </i>
-          </button>
-        </div>
-        <template is="dom-if" if="[[errors.message]]">
-          <div class="error">Debes escribir una reseña</div>
-        </template>
-      </form>
-    </div>
-
+            </svg>
+          </i>
+        </button>
+      </div>
+      <template is="dom-if" if="[[errors.message]]">
+        <div class="error">Debes escribir una reseña</div>
+      </template>
+    </form>
   </template>
 
   <script>
