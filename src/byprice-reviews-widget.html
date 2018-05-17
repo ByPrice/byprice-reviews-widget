@@ -7,10 +7,12 @@ Copyright (c) 2017 ByPrice All rights reserved.
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <!-- End - Third party components -->
 
 <!-- Our Components -->
 <link rel="import" href="./byprice-rating-star.html">
+<link rel="import" href="./byprice-write-a-review.html">
 <link rel="import" href="./byprice-review-message.html">
 <link rel="import" href="./byprice-reviews-widget-styles.html">
 <!-- End - Our Components -->
@@ -36,6 +38,11 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
     </style>
 
+    <!-- Send review -->
+    <iron-ajax id="SendReview" url="[[config.api.endpoint]]/ticket/add" method="POST" content-type="application/json" handle-as="json"
+      on-response="_handleResponse" on-error="_handleError"></iron-ajax>
+    <!-- End - Send review  -->
+
 
     <div class="wrapper">
       <!-- Summary -->
@@ -58,10 +65,15 @@ Copyright (c) 2017 ByPrice All rights reserved.
       <!-- Reviews -->
       <div class="reviews">
         <template is="dom-repeat" items="[[reviews]]">
-          <byprice-review-message user-image="[[item.userImage]]" user-name="[[item.userName]]" date="[[item.date]]" message="[[item.message]]" has-stories="[[item.hasStories]]" rating="[[item.rating]]" likes="[[item.likes]]" dislikes="[[item.dislikes]]"></byprice-review-message>
+          <byprice-review-message user-image="[[item.userImage]]" user-name="[[item.userName]]" date="[[item.date]]" message="[[item.message]]"
+            has-stories="[[item.hasStories]]" rating="[[item.rating]]" likes="[[item.likes]]" dislikes="[[item.dislikes]]"></byprice-review-message>
         </template>
       </div>
       <!-- End - reviews -->
+
+      <div class="write-a-review">
+        <byprice-write-a-review on-submit-review="_onSubmitReview"></byprice-write-a-review>
+      </div>
 
     </div>
 
@@ -119,7 +131,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
               rating: 5,
               likes: 68,
               dislikes: 1,
-            },{
+            }, {
               // userImage: 'https://78.media.tumblr.com/1451651d3187488069e901c29d10a437/tumblr_no4qspM1u71t9762so1_500.jpg',
               userName: 'Maritza Lçopez',
               date: 'Jueves',
@@ -146,7 +158,13 @@ Copyright (c) 2017 ByPrice All rights reserved.
        */
       ready() {
         super.ready();
+      }
 
+      _onSubmitReview(e, details) {
+        debugger
+        this.$.SendReview.body = {
+
+        }
       }
 
     }
