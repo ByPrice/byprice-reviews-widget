@@ -49,6 +49,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       .forms-wrapper {
+        position: relative;
+        width: 100%;
         background: transparent;
         background: #f0f0f0;
         padding: 15px 20px;
@@ -56,7 +58,67 @@ Copyright (c) 2017 ByPrice All rights reserved.
         border-radius: 5px;
       }
 
+      .loader {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        top: 0;
+        left: 0;
+        animation: move 3s linear infinite alternate;
+        -webkit-animation: move 3s linear infinite alternate;
+        z-index: 1;
+      }
+
+      .loader::before {
+        content: "";
+        width: 80px;
+        height: 2px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #0084FF;
+      }
+
+      .loader-over {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: rgba(255, 255, 255, .8);
+        z-index: 1;
+      }
+
+      @-webkit-keyframes move {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(100% - 80px));
+        }
+      }
+
+      @keyframes move {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(calc(100% - 80px));
+        }
+      }
+
+
       .preview {
+        opacity: 0;
+        -ms-transform: translateY(30px);
+        -webkit-transform: translateY(30px);
+        transform: translateY(30px);
+        margin-top: 0;
+        animation: slide-in 250ms linear forwards;
+        -webkit-animation: slide-in 250ms linear forwards;
+      }
+
+      .review {
         opacity: 0;
         -ms-transform: translateY(30px);
         -webkit-transform: translateY(30px);
@@ -96,8 +158,10 @@ Copyright (c) 2017 ByPrice All rights reserved.
       <!-- Reviews -->
       <div class="reviews">
         <template is="dom-repeat" items="[[reviews]]">
-          <byprice-review-message user-image="[[item.userImage]]" user-name="[[item.userName]]" date="[[item.date]]" message="[[item.message]]"
-            has-stories="[[item.hasStories]]" rating="[[item.rating]]" likes="[[item.likes]]" dislikes="[[item.dislikes]]"></byprice-review-message>
+          <div class="review">
+            <byprice-review-message user-image="[[item.userImage]]" user-name="[[item.userName]]" date="[[item.date]]" message="[[item.message]]"
+              has-stories="[[item.hasStories]]" rating="[[item.rating]]" likes="[[item.likes]]" dislikes="[[item.dislikes]]"></byprice-review-message>
+          </div>
         </template>
       </div>
       <!-- End - reviews -->
@@ -107,10 +171,15 @@ Copyright (c) 2017 ByPrice All rights reserved.
       </div>
 
       <div class="forms-wrapper">
+        <template is="dom-if" if="[[loader]]">
+          <div class="loader-over"></div>
+          <div class="loader"></div>
+        </template>
+
         <!--Write a review -->
         <template is="dom-if" if="[[_invert(showPreview)]]">
           <div class="write-a-review">
-            <byprice-write-a-review user="[[user]]" on-submit-review="_onSubmitReview"></byprice-write-a-review>
+            <byprice-write-a-review user="[[user]]" token="[[token]]" on-submit-review="_onSubmitReview"></byprice-write-a-review>
           </div>
         </template>
         <!--End - Write a review -->
@@ -148,16 +217,21 @@ Copyright (c) 2017 ByPrice All rights reserved.
           accountId: {
             type: String
           },
+          loader: {
+            type: Boolean,
+            value: true
+          },
           user: {
             type: Object,
             value: {
-              // image: 'https://78.media.tumblr.com/cd40ca1036fee9f42e4ab29360e976ce/tumblr_of2e9reEoX1v1hujco1_500.jpg',
-              // name: 'Eloiza Martinez',
-              email: 'eloz@gmail.com',
+              image: 'https://78.media.tumblr.com/cd40ca1036fee9f42e4ab29360e976ce/tumblr_of2e9reEoX1v1hujco1_500.jpg',
+              name: 'Eloiza Martinez',
+              // token: 'asdf'
+              // email: 'eloz@gmail.com',
             }
           },
-          isSigned: {
-            type: Boolean
+          token: {
+            type: String
           },
           item: {
             type: Object,
@@ -232,15 +306,42 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       _onSubmitReview(e, details) {
-        this.set('showPreview', true);
+        if (this.loader) return;
+        var error = 0
         this.set('send', details);
-        this.$.SendReview.body = {
-
+        if (!this.user || !this.token) {
+          this.set('showPreview', true);
+        } else {
+          this._sendReview(details);
+          this.push('reviews', {
+            userImage: this.user.image,
+            userName: this.user.name,
+            date: 'Hace unos segundos',
+            message: details.message,
+            rating: details.rating,
+            likes: 0,
+            dislikes: 0
+          });
         }
       }
 
-      _onSubmitSign(e, details) {
+      _sendReview(data) {
+        this.$.SendReview.body = {}
+        this.$.SendReview.generateRequest();
+      }
 
+      _onSubmitSign(e, details) {
+        this._sendReview(this.details);
+        this.push('reviews', {
+          userImage: this.user.image,
+          userName: this.user.name,
+          date: 'Hace unos segundos',
+          message: details.message,
+          rating: details.rating,
+          likes: 0,
+          dislikes: 0
+        });
+        debugger
       }
 
       /**
