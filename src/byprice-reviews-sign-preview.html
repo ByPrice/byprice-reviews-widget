@@ -5,6 +5,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
 <!-- Third party components -->
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/mixins/gesture-event-listeners.html">
 <!-- End - Third party components -->
 
 <!-- Our Behaviors -->
@@ -27,6 +28,52 @@ Copyright (c) 2017 ByPrice All rights reserved.
         background: transparent;
       }
 
+      h3 {
+        margin: 0;
+        font-weight: 400;
+        font-size: 16px;
+        color: #989898;
+        text-align: center;
+      }
+
+      .message-wrapper {
+        margin-top: 20px;
+        padding: 15px 20px;
+        background-color: #f5f5f5;
+        position: relative;
+        border-radius: 5px;
+        box-shadow: 0 6px 10px -3px rgba(0, 0, 0, .18);
+        border: 1px solid #dadada;
+      }
+
+
+      .message-tail {
+        width: 20px;
+        height: 20px;
+        display: block;
+        position: absolute;
+        bottom: -15px;
+        left: calc(50% - 10px);
+        transform: rotate(270deg);
+      }
+
+      .message-tail svg {
+        fill: #f5f5f5;
+        stroke: #dadada;
+        stroke-width: 1px;
+      }
+
+      .message-tail::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 15px;
+        width: 3px;
+        height: 20px;
+        background: #f5f5f5;
+      }
+
+
       .item figure {
         width: 60px;
         height: 60px;
@@ -41,13 +88,13 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       .sign button {
-        min-width: 110px;
+        min-width: 90px;
         width: auto;
         max-width: 140px;
         height: 35px;
-        margin: 0 15px 0 0;
+        margin: 15px 10px 0 0;
         border-radius: 35px;
-        padding: 0 10px;
+        padding: 0 5px;
         flex-shrink: 0;
         border: 1px solid transparent;
         outline: none;
@@ -61,6 +108,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         outline: none;
         -webkit-appearance: none;
         -moz-appearance: none;
+        cursor: pointer;
       }
 
       .sign button figure {
@@ -83,18 +131,33 @@ Copyright (c) 2017 ByPrice All rights reserved.
         margin: 0 15px 0 0;
         font-size: 14px;
       }
+
+      .opacity {
+        opacity: .3;
+      }
     </style>
 
 
     <div class="content">
+      <h3>¿Con qué cuenta publicamos tu comentario?</h3>
       <div class="item flex flex-v-center">
         <figure>
           <img src$="[[item.image]]">
         </figure>
         <div>[[item.name]]</div>
       </div>
-      <div class="sign flex flex-v-center flex-h-center">
-        <button class="facebook flex flex-v-center" style="background-color: #3b5998">
+      <div class="message-wrapper">
+        <i class="message-tail">
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
+            style="enable-background:new 0 0 24 24;" xml:space="preserve">
+            <path d="M20.4,2.3C16.8,8,9.7,10.4,3.6,7.7c0,0,0,0,0,0c1,5.1,4.7,9.9,10.2,12.4c2.2,1,4.4,1.5,6.6,1.6V2.3z" />
+          </svg>
+        </i>
+        <span>[[message]]</span>
+      </div>
+      <div class="sign flex flex-v-center flex-h-center flex-multy">
+        <button class$="facebook flex flex-v-center [[_checkActive(_signOption, 'facebook')]]" style="background-color: #3b5998"
+          on-tap="_selectSignOption" data-option="facebook">
           <figure class="flex flex-v-center flex-h-center">
             <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               width="24px" height="24px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
@@ -104,7 +167,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
           </figure>
           <span>Facebook</span>
         </button>
-        <button class="google flex flex-v-center" style="background-color: #d34836">
+        <button class$="google flex flex-v-center  [[_checkActive(_signOption, 'google')]]" style="background-color: #d34836" on-tap="_selectSignOption"
+          data-option="google">
           <figure class="flex flex-v-center flex-h-center">
             <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               width="24px" height="24px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
@@ -122,8 +186,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
           </figure>
           <span>Google</span>
         </button>
-        <button class="byprice flex flex-v-center" style="background-color: #960062">
-          <figure class="flex flex-v-center flex-h-center"  style="width: 18px; height: 18px;">
+        <button class$="byprice flex flex-v-center  [[_checkActive(_signOption, 'byprice')]]" style="background-color: #960062" on-tap="_selectSignOption"
+          data-option="byprice">
+          <figure class="flex flex-v-center flex-h-center" style="width: 18px; height: 18px;">
             <svg version="1.1" id="byprice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               viewBox="0 0 106 103" style="enable-background:new 0 0 106 103;" xml:space="preserve">
               <style type="text/css">
@@ -154,7 +219,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
           </figure>
           <span>ByPrice</span>
         </button>
-        <button class="private flex flex-v-center" style="background-color: #DADADA">
+        <button class$="private flex flex-v-center  [[_checkActive(_signOption, 'private')]]" style="background-color: #DADADA" on-tap="_selectSignOption"
+          data-option="private">
           <figure class="flex flex-v-center flex-h-center" style="width: 18px; height: 18px;">
             <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
               viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
@@ -175,6 +241,27 @@ Copyright (c) 2017 ByPrice All rights reserved.
           <span style="color: #383838">Invitado</span>
         </button>
       </div>
+
+      <div class="sign-content">
+        <!-- Byprice -->
+        <template is="dom-if" if="[[_signOption.byprice]]">
+          <div class="sign-content-option">
+            <input type="email" placeholder="Correo electrónico" />
+            <input type="password" placeholder="Contraseña" />
+            <button type="submit">Envíar</button>
+          </div>
+        </template>
+        <!--End - Byprice -->
+        <!-- Private -->
+        <template is="dom-if" if="[[_signOption.private]]">
+          <div class="sign-content-option">
+            <input type="name" placeholder="Nombre" />
+            <input type="email" placeholder="Correo electrónico" />
+            <button type="submit">Envíar</button>
+          </div>
+        </template>
+        <!--End - Private -->
+      </div>
     </div>
 
   </template>
@@ -183,7 +270,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
     /**
      * Class for byprice custom <byprice-reviews-sign-preview></<byprice-reviews-sign-preview>
      */
-    class ByPriceReviewsSignPreview extends Polymer.Element {
+    class ByPriceReviewsSignPreview extends Polymer.GestureEventListeners(Polymer.Element) {
       /**
        * Returns component name
        */
@@ -198,6 +285,15 @@ Copyright (c) 2017 ByPrice All rights reserved.
         return {
           prop: {
             type: String
+          },
+          /* Private */
+          _activeOption: {
+            type: Object,
+            value: false
+          },
+          _signOption: {
+            type: Object,
+            value: {}
           }
         }
       }
@@ -208,6 +304,20 @@ Copyright (c) 2017 ByPrice All rights reserved.
       ready() {
         super.ready();
       }
+
+      _selectSignOption(e) {
+        if (!e.currentTarget.dataset || !e.currentTarget.dataset.option) return;
+        var signOption = {};
+        signOption[e.currentTarget.dataset.option] = true
+        this.set('_signOption', signOption);
+      }
+
+      _checkActive(signOption, option) {
+        var d = Object.keys(signOption);
+        if (!d.length) return '';
+        return signOption[option] ? '' : 'opacity';
+      }
+
 
     }
 
