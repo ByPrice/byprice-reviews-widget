@@ -15,6 +15,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
 <link rel="import" href="./byprice-write-a-review.html">
 <link rel="import" href="./byprice-review-message.html">
 <link rel="import" href="./byprice-reviews-widget-styles.html">
+<link rel="import" href="./byprice-reviews-sign-preview.html">
 <!-- End - Our Components -->
 
 <dom-module id="byprice-reviews-widget">
@@ -42,7 +43,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         text-align: center;
         color: #960062;
       }
-      
+
       .view-all span {
         cursor: pointer;
       }
@@ -95,7 +96,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
       <!-- Check sign-->
       <template is="dom-if" if="[[showSign]]">
-
+        <byprice-reviews-sign-preview></byprice-reviews-sign-preview>
       </template>
       <!-- End - Check sign-->
     </div>
@@ -122,6 +123,13 @@ Copyright (c) 2017 ByPrice All rights reserved.
           accountId: {
             type: String
           },
+          item: {
+            type: Object,
+            value: {
+              name: 'Redustat',
+              image: 'https://media.byprice.com/1815c939-5429-4c81-bfce-d86599b270ee/byprice/1815c939-5429-4c81-bfce-d86599b270ee_300_300.png',
+            }
+          },
           channel: {
             type: String
           },
@@ -143,6 +151,10 @@ Copyright (c) 2017 ByPrice All rights reserved.
               fill: '#960062',
               empty: '#989898'
             }
+          },
+          showSign: {
+            type: Boolean,
+            value: true
           },
           reviews: {
             type: Array,
