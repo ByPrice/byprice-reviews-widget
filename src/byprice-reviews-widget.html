@@ -110,7 +110,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!--Write a review -->
         <template is="dom-if" if="[[_invert(showPreview)]]">
           <div class="write-a-review">
-            <byprice-write-a-review on-submit-review="_onSubmitReview"></byprice-write-a-review>
+            <byprice-write-a-review user="[[user]]" on-submit-review="_onSubmitReview"></byprice-write-a-review>
           </div>
         </template>
         <!--End - Write a review -->
@@ -118,7 +118,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Check sign-->
         <template is="dom-if" if="[[showPreview]]">
           <div class="preview">
-            <byprice-reviews-sign-preview rating="[[send.rating]]" message="[[send.message]]" show-preview="{{showPreview}}"></byprice-reviews-sign-preview>
+            <byprice-reviews-sign-preview rating="[[send.rating]]" message="[[send.message]]" show-preview="{{showPreview}}" on-submit-sign="_onSubmitSign"></byprice-reviews-sign-preview>
           </div>
         </template>
         <!-- End - Check sign-->
@@ -147,6 +147,17 @@ Copyright (c) 2017 ByPrice All rights reserved.
         return {
           accountId: {
             type: String
+          },
+          user: {
+            type: Object,
+            value: {
+              // image: 'https://78.media.tumblr.com/cd40ca1036fee9f42e4ab29360e976ce/tumblr_of2e9reEoX1v1hujco1_500.jpg',
+              // name: 'Eloiza Martinez',
+              email: 'eloz@gmail.com',
+            }
+          },
+          isSigned: {
+            type: Boolean
           },
           item: {
             type: Object,
@@ -226,6 +237,10 @@ Copyright (c) 2017 ByPrice All rights reserved.
         this.$.SendReview.body = {
 
         }
+      }
+
+      _onSubmitSign(e, details) {
+
       }
 
       /**
