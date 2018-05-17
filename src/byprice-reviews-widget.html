@@ -1,0 +1,156 @@
+<!--
+@license
+Copyright (c) 2017 ByPrice All rights reserved.
+-->
+
+<!-- Third party components -->
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../bower_components/polymer/lib/elements/dom-if.html">
+<!-- End - Third party components -->
+
+<!-- Our Components -->
+<link rel="import" href="./byprice-rating-star.html">
+<link rel="import" href="./byprice-review-message.html">
+<link rel="import" href="./byprice-reviews-widget-styles.html">
+<!-- End - Our Components -->
+
+<dom-module id="byprice-reviews-widget">
+  <template>
+    <style include="byprice-reviews-widget-styles">
+      :host {
+        max-width: 550px;
+        display: block;
+      }
+
+      header {
+        font-size: 22px;
+      }
+
+      .wrapper {
+        background: transparent
+      }
+
+      .summary-rating-stars {
+        margin: 0 0 0 10px;
+      }
+    </style>
+
+
+    <div class="wrapper">
+      <!-- Summary -->
+      <header class="flex flex-v-center flex-h-space-between">
+        <div class="summary-rating flex flex-v-center">
+          [[summaryRating]]
+          <div class="summary-rating-stars flex flex-v-center">
+            <template is="dom-repeat" items="[[_stars]]">
+              <byprice-rating-star fill="[[item.filled]]"></byprice-rating-star>
+            </template>
+          </div>
+        </div>
+        <div class="summary-reviews">
+          [[summaryReviews]] Reseñas
+        </div>
+        <div class="summary-stories">[[summaryStories]] Historias</div>
+      </header>
+      <!-- End - Summary -->
+
+      <!-- Reviews -->
+      <div class="reviews">
+        <template is="dom-repeat" items="[[reviews]]">
+          <byprice-review-message user-image="[[item.userImage]]" user-name="[[item.userName]]" date="[[item.date]]" message="[[item.message]]" has-stories="[[item.hasStories]]" rating="[[item.rating]]" likes="[[item.likes]]" dislikes="[[item.dislikes]]"></byprice-review-message>
+        </template>
+      </div>
+      <!-- End - reviews -->
+
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * Class for byprice custom <byprice-reviews-widget></<byprice-reviews-widget>
+     */
+    class ByPriceReviewsWidget extends Polymer.Element {
+      /**
+       * Returns component name
+       */
+      static get is() {
+        return 'byprice-reviews-widget';
+      }
+
+      /**
+       * Declare properties for the element's public API
+       */
+      static get properties() {
+        return {
+          accountId: {
+            type: String
+          },
+          channel: {
+            type: String
+          },
+          summaryRating: {
+            type: Number,
+            value: 4.4
+          },
+          summaryReviews: {
+            type: Number,
+            value: 58
+          },
+          summaryStories: {
+            type: Number,
+            value: 10
+          },
+          rating: {
+            type: Object,
+            value: {
+              fill: '#960062',
+              empty: '#989898'
+            }
+          },
+          reviews: {
+            type: Array,
+            value: [{
+              userImage: 'https://78.media.tumblr.com/cd40ca1036fee9f42e4ab29360e976ce/tumblr_of2e9reEoX1v1hujco1_500.jpg',
+              userName: 'Eloiza Martinez',
+              date: 'Ayer',
+              message: 'Increible producto, bajé 7.3 kg combinándolo con ejercicio y dieta muy bueno, nunca había bajado tanto, recomendadísimo!!',
+              rating: 5,
+              likes: 68,
+              dislikes: 1,
+            },{
+              // userImage: 'https://78.media.tumblr.com/1451651d3187488069e901c29d10a437/tumblr_no4qspM1u71t9762so1_500.jpg',
+              userName: 'Maritza Lçopez',
+              date: 'Jueves',
+              message: 'Increible producto, bajé 7.3 kg combinándolo con ejercicio y dieta muy bueno, nunca había bajado tanto, recomendadísimo!!',
+              rating: 3,
+              likes: 6,
+              dislikes: 12,
+            }],
+          },
+          /* Private */
+          _stars:  {
+            type: Array,
+            value: [{
+              filled: true
+            }, {
+              filled: true
+            }, {}, {}, {}]
+          }
+        }
+      }
+
+      /**
+       * Legacy callback Called after property values are set and local DOM is initialized.
+       */
+      ready() {
+        super.ready();
+
+      }
+
+    }
+
+    window.customElements.define(ByPriceReviewsWidget.is, ByPriceReviewsWidget);
+  </script>
+</dom-module>
