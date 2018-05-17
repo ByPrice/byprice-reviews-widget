@@ -55,6 +55,16 @@ Copyright (c) 2017 ByPrice All rights reserved.
         border: 1px solid #dadada;
         border-radius: 5px;
       }
+
+      .preview {
+        opacity: 0;
+        -ms-transform: translateY(30px);
+        -webkit-transform: translateY(30px);
+        transform: translateY(30px);
+        margin-top: 0;
+        animation: slide-in 250ms linear forwards;
+        -webkit-animation: slide-in 250ms linear forwards;
+      }
     </style>
 
     <!-- Send review -->
@@ -98,14 +108,18 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
       <div class="forms-wrapper">
         <!--Write a review -->
-        <div class="write-a-review">
-          <byprice-write-a-review on-submit-review="_onSubmitReview"></byprice-write-a-review>
-        </div>
+        <template is="dom-if" if="[[_invert(showPreview)]]">
+          <div class="write-a-review">
+            <byprice-write-a-review on-submit-review="_onSubmitReview"></byprice-write-a-review>
+          </div>
+        </template>
         <!--End - Write a review -->
 
         <!-- Check sign-->
-        <template is="dom-if" if="[[showSign]]">
-          <byprice-reviews-sign-preview></byprice-reviews-sign-preview>
+        <template is="dom-if" if="[[showPreview]]">
+          <div class="preview">
+            <byprice-reviews-sign-preview rating="[[send.rating]]" message="[[send.message]]" show-preview="{{showPreview}}"></byprice-reviews-sign-preview>
+          </div>
         </template>
         <!-- End - Check sign-->
 
@@ -163,9 +177,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
               empty: '#989898'
             }
           },
-          showSign: {
+          showPreview: {
             type: Boolean,
-            value: true
+            value: false
           },
           reviews: {
             type: Array,
@@ -207,10 +221,20 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       _onSubmitReview(e, details) {
-        debugger
+        this.set('showPreview', true);
+        this.set('send', details);
         this.$.SendReview.body = {
 
         }
+      }
+
+      /**
+       * Converts value to Boolean and inverts it
+       * @param {*} value
+       * @return {Boolean}
+       */
+      _invert(value) {
+        return !Boolean(value);
       }
 
     }

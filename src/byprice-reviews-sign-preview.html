@@ -37,13 +37,14 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       .message-wrapper {
-        margin-top: 20px;
+        margin: 20px 0;
         padding: 15px 20px;
-        background-color: #f5f5f5;
+        background-color: #fff;
         position: relative;
         border-radius: 5px;
         box-shadow: 0 6px 10px -3px rgba(0, 0, 0, .18);
         border: 1px solid #dadada;
+        color: #686868;
       }
 
 
@@ -58,7 +59,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       .message-tail svg {
-        fill: #f5f5f5;
+        fill: #fff;
         stroke: #dadada;
         stroke-width: 1px;
       }
@@ -70,7 +71,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         left: 15px;
         width: 3px;
         height: 20px;
-        background: #f5f5f5;
+        background: #fff;
       }
 
 
@@ -135,18 +136,100 @@ Copyright (c) 2017 ByPrice All rights reserved.
       .opacity {
         opacity: .3;
       }
+
+      .sign-content-option {
+        margin: 20px 0;
+      }
+
+      button {
+        width: 92px;
+        height: 35px;
+        border: 1px solid transparent;
+        background-color: #960062;
+        border-radius: 5px;
+        outline: none;
+        color: white;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      input {
+        height: 35px;
+        padding: 0 15px;
+        margin: 0 10px 0 0;
+        display: block;
+        font-size: 14px;
+        outline: none;
+        background: white;
+        border: 1px solid #dadada;
+        border-radius: 5px;
+        position: relative;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+      small {
+        padding: 0 15px;
+        display: inline-block;
+        color: #989898;
+      }
+
+      .edit-wrapper {
+        position: absolute;
+        flex-shrink: 0;
+      }
+
+      .stars-wrapper {
+        width: 100%;
+      }
+
+      .edit-wrapper {
+        cursor: pointer;
+        color: #686868;
+        font-size: 14px;
+      }
+
+      .edit-wrapper figure {
+        width: 24px;
+        height: 24px;
+        fill: #686868;
+        margin: 0;
+      }
     </style>
 
 
     <div class="content">
-      <h3>¿Con qué cuenta publicamos tu comentario?</h3>
-      <div class="item flex flex-v-center">
+      <!-- <div class="item flex flex-v-center">
         <figure>
           <img src$="[[item.image]]">
         </figure>
         <div>[[item.name]]</div>
+      </div> -->
+      <div class="top-wrapper flex flex-v-center flex-h-end">
+        <div class="stars-wrapper flex flex-v-center flex-h-center">
+          <template is="dom-repeat" items="[[_stars]]">
+            <byprice-rating-star fill="[[item.filled]]"></byprice-rating-star>
+          </template>
+        </div>
+        <div class="edit-wrapper flex flex-v-center flex-h-end" on-tap="_close">
+          <figure>
+            <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              width="24px" height="24px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+              <g>
+                <path d="M21.5,3.1l-1.7-1.7c-0.2-0.2-0.2-0.2-0.4-0.2c-0.2,0-0.3,0.1-0.4,0.2L8.9,11.5c-0.1,0.1-0.1,0.2-0.2,0.2
+             l-1.1,2.8c-0.2,0.4,0.2,0.8,0.5,0.8c0.1,0,0.2,0,0.2-0.1l2.9-1.2c0.1-0.1,0.2-0.1,0.2-0.2L21.5,3.8C21.7,3.7,21.7,3.3,21.5,3.1z
+              M10.7,13.1l-1.5,0.6l0.6-1.5l9.5-9.6l0.9,0.9L10.7,13.1z" />
+                <path d="M17,11.3c-0.5,0-0.9,0.4-0.9,0.9v8.7H4.2V4.6h9.1c0.5,0,0.9-0.4,0.9-0.9s-0.4-0.9-0.9-0.9h-10
+             c-0.5,0-0.9,0.4-0.9,0.9v18.1c0,0.5,0.4,0.9,0.9,0.9H17c0.5,0,0.9-0.4,0.9-0.9v-9.6C17.8,11.7,17.4,11.3,17,11.3z"
+                />
+              </g>
+            </svg>
+          </figure>
+          <span>Editar</span>
+        </div>
       </div>
-      <div class="message-wrapper">
+      <div class="message-wrapper no-select">
         <i class="message-tail">
           <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
             style="enable-background:new 0 0 24 24;" xml:space="preserve">
@@ -155,6 +238,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         </i>
         <span>[[message]]</span>
       </div>
+      <h3>¿Con qué cuenta publicamos tu comentario?</h3>
       <div class="sign flex flex-v-center flex-h-center flex-multy">
         <button class$="facebook flex flex-v-center [[_checkActive(_signOption, 'facebook')]]" style="background-color: #3b5998"
           on-tap="_selectSignOption" data-option="facebook">
@@ -246,18 +330,31 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Byprice -->
         <template is="dom-if" if="[[_signOption.byprice]]">
           <div class="sign-content-option">
-            <input type="email" placeholder="Correo electrónico" />
-            <input type="password" placeholder="Contraseña" />
-            <button type="submit">Envíar</button>
+            <form class="flex flex-v-start">
+              <label>
+                <input type="email" placeholder="Correo electrónico" required />
+              </label>
+              <label>
+                <input type="password" placeholder="Contraseña" />
+              </label>
+              <button type="submit">Publicar</button>
+            </form>
           </div>
         </template>
         <!--End - Byprice -->
         <!-- Private -->
         <template is="dom-if" if="[[_signOption.private]]">
           <div class="sign-content-option">
-            <input type="name" placeholder="Nombre" />
-            <input type="email" placeholder="Correo electrónico" />
-            <button type="submit">Envíar</button>
+            <form class="flex flex-v-start">
+              <label>
+                <input type="name" placeholder="Nombre" />
+                <small>Opcional</small>
+              </label>
+              <label>
+                <input type="email" placeholder="Correo electrónico" required/>
+              </label>
+              <button type="submit">Publicar</button>
+            </form>
           </div>
         </template>
         <!--End - Private -->
@@ -286,6 +383,15 @@ Copyright (c) 2017 ByPrice All rights reserved.
           message: {
             type: String
           },
+          rating: {
+            type: Number,
+            observer: '_watchRating',
+            value: 0
+          },
+          showPreview: {
+            type: Boolean,
+            notify: true
+          },
           /* Private */
           _activeOption: {
             type: Object,
@@ -293,7 +399,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
           },
           _signOption: {
             type: Object,
-            value: {}
+            value: {
+              // byprice: true
+            }
           }
         }
       }
@@ -318,6 +426,20 @@ Copyright (c) 2017 ByPrice All rights reserved.
         return signOption[option] ? '' : 'opacity';
       }
 
+      _close() {
+        this.set('showPreview', !this.showPreview);
+      }
+
+      _watchRating(rating) {
+        if (!rating) return;
+        var _stars = [];
+        for (var i = 0; i < rating; i++) {
+          _stars.push({
+            filled: i <= rating
+          });
+        }
+        this.set('_stars', _stars);
+      }
 
     }
 
