@@ -74,7 +74,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
         background: #fff;
       }
 
-
       .item figure {
         width: 60px;
         height: 60px;
@@ -196,6 +195,12 @@ Copyright (c) 2017 ByPrice All rights reserved.
         fill: #686868;
         margin: 0;
       }
+
+      .edit-wrapper figure svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
     </style>
 
 
@@ -251,7 +256,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
           </figure>
           <span>Facebook</span>
         </button>
-        <button class$="google flex flex-v-center  [[_checkActive(_signOption, 'google')]]" style="background-color: #d34836" on-tap="_selectSignOption"
+        <!-- <button class$="google flex flex-v-center  [[_checkActive(_signOption, 'google')]]" style="background-color: #d34836" on-tap="_selectSignOption"
           data-option="google">
           <figure class="flex flex-v-center flex-h-center">
             <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -269,7 +274,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
             </svg>
           </figure>
           <span>Google</span>
-        </button>
+        </button> -->
         <button class$="byprice flex flex-v-center  [[_checkActive(_signOption, 'byprice')]]" style="background-color: #960062" on-tap="_selectSignOption"
           data-option="byprice">
           <figure class="flex flex-v-center flex-h-center" style="width: 18px; height: 18px;">
@@ -330,12 +335,12 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Byprice -->
         <template is="dom-if" if="[[_signOption.byprice]]">
           <div class="sign-content-option">
-            <form class="flex flex-v-start">
+            <form class="flex flex-v-start" on-submit="_onSubmit" data-form="byprice">
               <label>
-                <input type="email" placeholder="Correo electrónico" required />
+                <input id="Email" type="email" placeholder="Correo electrónico" required />
               </label>
               <label>
-                <input type="password" placeholder="Contraseña" />
+                <input id="Password" type="password" placeholder="Contraseña" required/>
               </label>
               <button type="submit">Publicar</button>
             </form>
@@ -345,13 +350,13 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Private -->
         <template is="dom-if" if="[[_signOption.private]]">
           <div class="sign-content-option">
-            <form class="flex flex-v-start">
+            <form class="flex flex-v-start" on-submit="_onSubmit" data-form="private">
               <label>
-                <input type="name" placeholder="Nombre" />
+                <input id="Name" type="name" placeholder="Nombre" />
                 <small>Opcional</small>
               </label>
               <label>
-                <input type="email" placeholder="Correo electrónico" required/>
+                <input id="PrivateEmail" type="email" placeholder="Correo electrónico" required/>
               </label>
               <button type="submit">Publicar</button>
             </form>
@@ -375,6 +380,10 @@ Copyright (c) 2017 ByPrice All rights reserved.
         return 'byprice-reviews-sign-preview';
       }
 
+      /**
+       * Fired when user sends private or byprice form
+       * @event submit-sign
+       */
       /**
        * Declare properties for the element's public API
        */
@@ -439,6 +448,19 @@ Copyright (c) 2017 ByPrice All rights reserved.
           });
         }
         this.set('_stars', _stars);
+      }
+
+      _onSubmit(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var form = e.currentTarget.dataset.form;
+        var data = {
+          form: form,
+          password: (this.shadowRoot.getElementById('Password') || {}).value,
+          name: (this.shadowRoot.getElementById('Name') || {}).value,
+          email: (this.shadowRoot.getElementById(form === 'byprice' ? 'Email' : 'PrivateEmail') || {}).value
+        }
+        this.fire('submit-sign', data);
       }
 
     }
