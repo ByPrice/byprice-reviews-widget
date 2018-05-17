@@ -15,15 +15,24 @@ jobs:
         - image: circleci/node:8.11.2
 
     steps:
-      - run:
-          name: pip
-          command: if [ $CIRCLE_BRANCH = 'master' ]; then apt update && apt install awscli && apt install awsebcli, python-pip; fi
+      # - run:
+      #     name: pip
+      #     command: if [ $CIRCLE_BRANCH = 'master' ]; then apt update && apt install awscli && apt install awsebcli, python-pip; fi
+      # - run:
+      #     name: upgrade
+      #     command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install --upgrade setuptools; fi
+      # - run:
+      #     name: install aws cli
+      #     command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install awsebcli; fi
       - run:
           name: upgrade
-          command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install --upgrade setuptools; fi
-    #   - run:
-    #       name: install aws cli
-    #       command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install awsebcli; fi
+          working_directory: /
+          command: |
+            apt-get -y -qq update
+            apt-get -y -qq install python3.4-dev
+            curl -O https://bootstrap.pypa.io/get-pip.py
+            python3.4 get-pip.py --user
+            pip install awscli --upgrade --user
       - run:
           name: install :/
           command: npm install
