@@ -16,11 +16,14 @@ jobs:
 
     steps:
       - run:
+          name: pip
+          command: if [ $CIRCLE_BRANCH = 'master' ]; then apt update && apt install awscli && apt install awsebcli, python-pip; fi
+      - run:
           name: upgrade
           command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install --upgrade setuptools; fi
-      - run:
-          name: install aws cli
-          command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install awsebcli; fi
+    #   - run:
+    #       name: install aws cli
+    #       command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install awsebcli; fi
       - run:
           name: install :/
           command: npm install
