@@ -12,7 +12,7 @@ jobs:
       - FOO: "bar"   
 
     docker:
-        - image: circleci/node:10.0.0
+        - image: circleci/node:8.11.2
 
     steps:
       - run:
@@ -29,7 +29,7 @@ jobs:
           command: npm i -g bower
       - run:
           name: install polymer
-          command: npm i -g polymer-cli
+          command: npm i -g polymer-cli --unsafe-perm
       - run:
           name: Polymer tesst
           command: |
