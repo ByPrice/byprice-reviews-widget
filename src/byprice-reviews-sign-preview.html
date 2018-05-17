@@ -234,16 +234,18 @@ Copyright (c) 2017 ByPrice All rights reserved.
           <span>Editar</span>
         </div>
       </div>
-      <div class="message-wrapper no-select">
-        <i class="message-tail">
-          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
-            style="enable-background:new 0 0 24 24;" xml:space="preserve">
-            <path d="M20.4,2.3C16.8,8,9.7,10.4,3.6,7.7c0,0,0,0,0,0c1,5.1,4.7,9.9,10.2,12.4c2.2,1,4.4,1.5,6.6,1.6V2.3z" />
-          </svg>
-        </i>
-        <span>[[message]]</span>
-      </div>
-      <h3>¿Con qué cuenta publicamos tu comentario?</h3>
+      <template is="dom-if" if="[[message]]">
+        <div class="message-wrapper no-select">
+          <i class="message-tail">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
+              style="enable-background:new 0 0 24 24;" xml:space="preserve">
+              <path d="M20.4,2.3C16.8,8,9.7,10.4,3.6,7.7c0,0,0,0,0,0c1,5.1,4.7,9.9,10.2,12.4c2.2,1,4.4,1.5,6.6,1.6V2.3z" />
+            </svg>
+          </i>
+          <span>[[message]]</span>
+        </div>
+      </template>
+      <h3>¿Con qué cuenta publicamos tu reseña?</h3>
       <div class="sign flex flex-v-center flex-h-center flex-multy">
         <button class$="facebook flex flex-v-center [[_checkActive(_signOption, 'facebook')]]" style="background-color: #3b5998"
           on-tap="_selectSignOption" data-option="facebook">
