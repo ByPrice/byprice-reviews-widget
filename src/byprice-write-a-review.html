@@ -44,7 +44,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
       textarea {
         width: calc(100% - 30px);
-        min-width: calc(100% - 70px);
+        min-width: calc(100% - 120px);
         min-height: 15px;
         padding: 10px 15px 12px 15px;
         height: 15px;
@@ -113,6 +113,33 @@ Copyright (c) 2017 ByPrice All rights reserved.
         background-color: #242424;
         transform: rotate(45deg)
       }
+
+      .user figure {
+        width: 35px;
+        height: 35px;
+        margin: 0 5px 0 0;
+        color: white;
+        border-radius: 50%;
+        background: #E86D9D;
+        overflow: hidden;
+      }
+
+      .picture {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-repeat: no-repeat;
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center center;
+      }
+
+      .initials {
+        font-size: 16px;
+        text-align: center;
+        display: inline-block;
+        text-transform: uppercase
+      }
     </style>
 
     <form id="Form">
@@ -128,6 +155,18 @@ Copyright (c) 2017 ByPrice All rights reserved.
         </template>
       </div>
       <div class="flex flex-v-center">
+        <template is="dom-if" if="[[user]]">
+          <div class="user">
+            <figure class="flex flex-v-center flex-h-center" title="[[user.name]] [[user.email]]">
+              <template is="dom-if" if="[[user.image]]">
+                <div class="picture" style="background-image: url([[user.image]])"></div>
+              </template>
+              <template is="dom-if" if="[[_invert(user.image)]]">
+                <span class="initials">[[_getFirstLetters(user)]]</span>
+              </template>
+            </figure>
+          </div>
+        </template>
         <textarea placeholder="Escribe tu reseña" id="Review" on-change="_onChangeMessage"></textarea>
         <button class="flex flex-v-center flex-h-center" type="submit">
           <i>
@@ -171,6 +210,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
           stars: {
             type: Array,
             value: new Array(5)
+          },
+          user: {
+            type: Object
           },
           selectedStars: {
             type: Number,
@@ -239,6 +281,28 @@ Copyright (c) 2017 ByPrice All rights reserved.
         this.set('errors.rating', false);
         this.set('selectedStars', e.model.index + 1);
       }
+
+      /**
+       * Converts value to Boolean and inverts it
+       * @param {*} value
+       * @return {Boolean}
+       */
+      _invert(value) {
+        return !Boolean(value);
+      }
+
+      _getFirstLetters(user) {
+        var initials = '';
+        if (!user) return initials;
+        if (user.name) {
+          var names = user.name.split(' ');
+          initials = names.length > 1 ? names[0][0] + names[1][0] : user.name.substring(0, 2);
+        } else if (user.email) {
+          initials = user.email.substring(0, 2);
+        }
+        return initials
+      }
+
 
     }
 
