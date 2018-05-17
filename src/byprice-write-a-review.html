@@ -155,7 +155,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         </template>
       </div>
       <div class="flex flex-v-center">
-        <template is="dom-if" if="[[user]]">
+        <template is="dom-if" if="[[token]]">
           <div class="user">
             <figure class="flex flex-v-center flex-h-center" title="[[user.name]] [[user.email]]">
               <template is="dom-if" if="[[user.image]]">
@@ -213,6 +213,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
           },
           user: {
             type: Object
+          },
+          token: {
+            type: String
           },
           selectedStars: {
             type: Number,
