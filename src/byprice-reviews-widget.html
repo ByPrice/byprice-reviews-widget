@@ -178,7 +178,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!--Write a review -->
         <template is="dom-if" if="[[_invert(showPreview)]]">
           <div class="write-a-review">
-            <byprice-write-a-review user="[[user]]" token="[[token]]" on-submit-review="_onSubmitReview"></byprice-write-a-review>
+            <byprice-write-a-review rating="{{rating}}" user="[[user]]" token="[[token]]" on-submit-review="_onSubmitReview" message="{{message}}"></byprice-write-a-review>
           </div>
         </template>
         <!--End - Write a review -->
@@ -186,7 +186,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Check sign-->
         <template is="dom-if" if="[[showPreview]]">
           <div class="preview">
-            <byprice-reviews-sign-preview rating="[[send.rating]]" message="[[send.message]]" show-preview="{{showPreview}}" on-submit-sign="_onSubmitSign"></byprice-reviews-sign-preview>
+            <byprice-reviews-sign-preview id="Preview" rating="{{rating}}" message="[[message]]" show-preview="{{showPreview}}" on-submit-sign="_onSubmitSign"></byprice-reviews-sign-preview>
           </div>
         </template>
         <!-- End - Check sign-->
@@ -255,11 +255,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
             value: 0
           },
           rating: {
-            type: Object,
-            value: {
-              fill: '#960062',
-              empty: '#989898'
-            }
+            type: Number,
+            notify: true,
+            value: 0
           },
           showPreview: {
             type: Boolean,
@@ -312,34 +310,38 @@ Copyright (c) 2017 ByPrice All rights reserved.
           this.set('showPreview', true);
         } else {
           this._sendReview(details);
-          this.push('reviews', {
-            userImage: this.user.image,
-            userName: this.user.name,
-            date: 'Hace unos segundos',
-            message: details.message,
-            rating: details.rating,
-            likes: 0,
-            dislikes: 0
-          });
         }
       }
 
       _sendReview(data) {
+        this._success();
         this.$.SendReview.body = {}
         this.$.SendReview.generateRequest();
       }
 
       _onSubmitSign(e, details) {
         this._sendReview(this.details);
+      }
+
+      _success() {
+        this.resetState();
         this.push('reviews', {
           userImage: this.user.image,
           userName: this.user.name,
           date: 'Hace unos segundos',
-          message: details.message,
-          rating: details.rating,
+          message: this.send.message,
+          rating: this.send.rating,
           likes: 0,
           dislikes: 0
         });
+      }
+
+      resetState() {
+        this.set('showPreview', false);
+        this.set('rating', 0);
+        this.set('message', '');
+        var $Preview = this.shadowRoot.getElementById('Preview')
+        if ($Preview) $Preview.reset();
       }
 
       /**

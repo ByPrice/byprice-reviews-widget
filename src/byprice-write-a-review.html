@@ -217,9 +217,16 @@ Copyright (c) 2017 ByPrice All rights reserved.
           token: {
             type: String
           },
-          selectedStars: {
+          message: {
+            type: String,
+            notify: true,
+            observer: '_watchMessage'
+          },
+          rating: {
             type: Number,
-            value: 0
+            value: 0,
+            observer: '_watchRating',
+            notify: true
           },
           errors: {
             type: Object,
@@ -243,21 +250,34 @@ Copyright (c) 2017 ByPrice All rights reserved.
         e.preventDefault();
         e.stopPropagation();
         var errors = 0;
-        if (!this.selectedStars) {
+        if (!this.rating) {
           errors++;
           this.set('errors.rating', true);
         }
+        console.log(this.rating, this.message)
         if (errors) return;
         this.dispatchEvent(new CustomEvent('submit-review', {
           detail: {
             message: this.$.Review.value,
-            rating: this.selectedStars
+            rating: this.rating
           }
         }));
       }
 
       _onChangeMessage(e) {
         if (e.target.value) this.set('errors.message', false);
+        this.set('message', e.target.value);
+      }
+
+      _watchRating(rating) {
+        if (typeof rating === 'undefined') return;
+        var _stars = [];
+        for (var i = 0; i < this.stars.length; i++) {
+          _stars.push({
+            filled: i < rating
+          });
+        }
+        this.set('stars', _stars);
       }
 
       _onHoverStar(e) {
@@ -271,16 +291,21 @@ Copyright (c) 2017 ByPrice All rights reserved.
       _resetStars() {
         for (var i = 0; i < this.stars.length; i++) {
           this.set('stars.' + i, {
-            filled: (i + 1) <= this.selectedStars
+            filled: (i + 1) <= this.rating
           });
         }
       }
 
       _onTapStar(e) {
         this.set('errors.rating', false);
-        this.set('selectedStars', e.model.index + 1);
+        this.set('rating', e.model.index + 1);
       }
 
+      _watchMessage(message) {
+        console.log('_watchMessage', message)
+        if (typeof message === 'undefined') return
+        this.$.Review.value = message;
+      }
       /**
        * Converts value to Boolean and inverts it
        * @param {*} value
