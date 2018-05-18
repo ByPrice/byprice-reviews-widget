@@ -3,7 +3,8 @@ version: 2
 
 ## Customize the test machine
 jobs:
-  build: 
+  build:
+    working_directory: ~/project
     # Set the timezone
     timezone: America/Mexico_City 
 
