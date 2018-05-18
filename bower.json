@@ -8,7 +8,6 @@
     "type": "git",
     "url":
     "git://git@github.com:ByPrice/byprice-reviews-widget.git"
-
   },
   "dependencies": {
     "iron-a11y-keys-behavior": "^2.1.1",
@@ -18,5 +17,10 @@
   "devDependencies": {
     "web-component-tester": "^6.5.0"
   },
+  "ignore": [
+    ".circleci",
+    ".editoconfig",
+    ".eslintrc"
+  ],
   "private": true
 }
