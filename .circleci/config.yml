@@ -20,21 +20,43 @@ jobs:
       - run:
           name: Aws
           command: sudo apt-get -y -qq install awscli
+
       - restore_cache: # special step to restore the dependency cache 
           key: dependency-cache-{{ checksum "package.json" }}
+
       - run:
           name: install :/
           command: npm install
+
       - save_cache: # special step to save the dependency cache
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+
+      - restore_cache: # special step to restore the dependency cache 
+          key: dependency-cache-{{ checksum "bower" }}
+
       - run:
           name: install bower
-          command: sudo npm i -g bower
+          command: sudo npm i -g bower && which bower
+
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "bower" }}
+          paths:
+            - /usr/local/lib/node_modules/bower
+      
+      - restore_cache: # special step to restore the dependency cache 
+          key: dependency-cache-{{ checksum "polymer" }}
+
       - run:
           name: install polymer
-          command: sudo npm i -g polymer-cli --unsafe-perm
+          command: sudo npm i -g polymer-cli --unsafe-perm && which polymer
+      
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "polymer" }}
+          paths:
+            - /usr/local/lib/node_modules/polymer-cli
+
       - run:
           name: Polymer tesst
           command: |
