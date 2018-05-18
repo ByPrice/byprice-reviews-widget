@@ -33,29 +33,13 @@ jobs:
           paths:
             - ./node_modules
 
-      - restore_cache: # special step to restore the dependency cache 
-          key: dependency-cache-bower
-
       - run:
           name: install bower
           command: sudo npm i -g bower && which bower
 
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-bower
-          paths:
-            - /usr/local/lib/node_modules/bower
-      
-      - restore_cache: # special step to restore the dependency cache 
-          key: dependency-cache-polymer
-
       - run:
           name: install polymer
           command: sudo npm i -g polymer-cli --unsafe-perm && which polymer
-      
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-polymer
-          paths:
-            - /usr/local/lib/node_modules/polymer-cli
 
       - run:
           name: Polymer tesst
