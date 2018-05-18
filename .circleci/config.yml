@@ -25,14 +25,8 @@ jobs:
       #     name: install aws cli
       #     command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install awsebcli; fi
       - run:
-          name: upgrade
-          working_directory: /
-          command: |
-            sudo apt-get -y -qq update
-            sudo apt-get -y -qq install python3.4-dev
-            sudo curl -O https://bootstrap.pypa.io/get-pip.py
-            sudo python3.4 get-pip.py --user
-            sudo pip install awscli --upgrade --user
+          name: Aws
+          command: sudo apt-get -y -qq install awscli
       - run:
           name: install :/
           command: npm install
