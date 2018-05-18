@@ -128,12 +128,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
     </style>
 
-    <!-- Send review -->
-    <iron-ajax id="SendReview" url="[[config.api.endpoint]]/ticket/add" method="POST" content-type="application/json" handle-as="json"
-      on-response="_handleResponse" on-error="_handleError"></iron-ajax>
-    <!-- End - Send review  -->
-
-
     <div class="wrapper">
       <!-- Summary -->
       <header class="flex flex-v-center flex-h-space-between">
@@ -145,9 +139,11 @@ Copyright (c) 2017 ByPrice All rights reserved.
             </template>
           </div>
         </div>
-        <div class="summary-reviews">
-          [[summaryReviews]] Reseñas
-        </div>
+        <template is="dom-if" if="[[summaryReviews]]">
+          <div class="summary-reviews">
+            [[summaryReviews]] Reseñas
+          </div>
+        </template>
         <template is="dom-if" if="[[summaryStories]]">
           <div class="summary-stories">[[summaryStories]] Historias</div>
         </template>
@@ -166,7 +162,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
       <!-- End - reviews -->
 
       <div class="view-all">
-        <span>Ver todas las reseñas</span>
+        <span on-tpa="_viewAll">Ver todas las reseñas</span>
       </div>
 
       <div class="forms-wrapper">
@@ -178,7 +174,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!--Write a review -->
         <template is="dom-if" if="[[_invert(showPreview)]]">
           <div class="write-a-review">
-             <byprice-write-a-review rating="{{rating}}" user="[[user]]" token="[[token]]" on-submit-review="_onSubmitReview" message="{{message}}"></byprice-write-a-review>
+            <byprice-write-a-review rating="{{rating}}" user="[[user]]" token="[[token]]" on-submit-review="_onSubmitReview" message="{{message}}"></byprice-write-a-review>
           </div>
         </template>
         <!--End - Write a review -->
@@ -209,6 +205,18 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       /**
+       * @event tap-view-all
+       */
+
+      /**
+       * @event submit-review
+       */
+
+      /**
+       * @event submit-sign
+       */
+
+      /**
        * Declare properties for the element's public API
        */
       static get properties() {
@@ -216,39 +224,27 @@ Copyright (c) 2017 ByPrice All rights reserved.
           accountId: {
             type: String
           },
+          channel: {
+            type: String
+          },
           loader: {
             type: Boolean,
             value: false
           },
           user: {
-            type: Object,
-            value: {
-              image: 'https://78.media.tumblr.com/cd40ca1036fee9f42e4ab29360e976ce/tumblr_of2e9reEoX1v1hujco1_500.jpg',
-              name: 'Eloiza Martinez',
-              // token: 'asdf'
-              // email: 'eloz@gmail.com',
-            }
+            type: Object
           },
           token: {
             type: String
           },
           item: {
-            type: Object,
-            value: {
-              name: 'Redustat',
-              image: 'https://media.byprice.com/1815c939-5429-4c81-bfce-d86599b270ee/byprice/1815c939-5429-4c81-bfce-d86599b270ee_300_300.png',
-            }
-          },
-          channel: {
-            type: String
+            type: Object
           },
           summaryRating: {
-            type: Number,
-            value: 4.4
+            type: Number
           },
           summaryReviews: {
-            type: Number,
-            value: 58
+            type: Number
           },
           summaryStories: {
             type: Number,
@@ -265,32 +261,11 @@ Copyright (c) 2017 ByPrice All rights reserved.
           },
           reviews: {
             type: Array,
-            value: [{
-              userImage: 'https://78.media.tumblr.com/cd40ca1036fee9f42e4ab29360e976ce/tumblr_of2e9reEoX1v1hujco1_500.jpg',
-              userName: 'Eloiza Martinez',
-              date: 'Ayer',
-              message: 'Increible producto, bajé 7.3 kg combinándolo con ejercicio y dieta muy bueno, nunca había bajado tanto, recomendadísimo!!',
-              rating: 5,
-              likes: 68,
-              dislikes: 1,
-            }, {
-              // userImage: 'https://78.media.tumblr.com/1451651d3187488069e901c29d10a437/tumblr_no4qspM1u71t9762so1_500.jpg',
-              userName: 'Maritza Lçopez',
-              date: 'Jueves',
-              message: 'Increible producto, bajé 7.3 kg combinándolo con ejercicio y dieta muy bueno, nunca había bajado tanto, recomendadísimo!!',
-              rating: 3,
-              likes: 6,
-              dislikes: 12,
-            }],
+            value: []
           },
           /* Private */
           _stars:  {
-            type: Array,
-            value: [{
-              filled: true
-            }, {
-              filled: true
-            }, {}, {}, {}]
+            type: Array
           }
         }
       }
@@ -309,31 +284,16 @@ Copyright (c) 2017 ByPrice All rights reserved.
         if (!this.user || !this.token) {
           this.set('showPreview', true);
         } else {
-          this._sendReview(details);
+          this.dispatchEvent(new CustomEvent('submit-review', {
+            detail: details
+          }));
         }
       }
 
-      _sendReview(data) {
-        this._success();
-        this.$.SendReview.body = {}
-        this.$.SendReview.generateRequest();
-      }
-
       _onSubmitSign(e, details) {
-        this._sendReview(this.details);
-      }
-
-      _success() {
-        this.resetState();
-        this.push('reviews', {
-          userImage: this.user.image,
-          userName: this.user.name,
-          date: 'Hace unos segundos',
-          message: this.send.message,
-          rating: this.send.rating,
-          likes: 0,
-          dislikes: 0
-        });
+        this.dispatchEvent(new CustomEvent('submit-sign', {
+          detail: this.details
+        }));
       }
 
       resetState() {
@@ -351,6 +311,15 @@ Copyright (c) 2017 ByPrice All rights reserved.
        */
       _invert(value) {
         return !Boolean(value);
+      }
+
+      _viewAll() {
+        this.dispatchEvent(new CustomEvent('tap-view-all', {
+          detail: {
+            accountId: this.accountId,
+            channel: this.channel
+          }
+        }));
       }
 
     }
