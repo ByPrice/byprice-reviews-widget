@@ -16,21 +16,19 @@ jobs:
         - image: circleci/node:8.11.2
 
     steps:
-      # - run:
-      #     name: pip
-      #     command: if [ $CIRCLE_BRANCH = 'master' ]; then apt update && apt install awscli && apt install awsebcli, python-pip; fi
-      # - run:
-      #     name: upgrade
-      #     command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install --upgrade setuptools; fi
-      # - run:
-      #     name: install aws cli
-      #     command: if [ $CIRCLE_BRANCH = 'master' ]; then pip install awsebcli; fi
+      - checkout
       - run:
           name: Aws
           command: sudo apt-get -y -qq install awscli
+      - restore_cache: # special step to restore the dependency cache 
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: install :/
           command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
       - run:
           name: install bower
           command: sudo npm i -g bower
