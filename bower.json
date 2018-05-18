@@ -10,7 +10,12 @@
     "git://git@github.com:ByPrice/byprice-reviews-widget.git"
   },
   "main": [
-    "byprice-reviews-widget.html"
+    "byprice-rating-star.html",
+    "byprice-review-message.html",
+    "byprice-reviews-sign-preview.html",
+    "byprice-reviews-widget-styles.html",
+    "byprice-reviews-widget.html",
+    "byprice-write-a-review.html"
   ],
   "dependencies": {
     "iron-a11y-keys-behavior": "^2.1.1",
