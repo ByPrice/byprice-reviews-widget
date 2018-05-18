@@ -32,10 +32,10 @@ jobs:
           command: npm install
       - run:
           name: install bower
-          command: npm i -g bower
+          command: sudo npm i -g bower
       - run:
           name: install polymer
-          command: npm i -g polymer-cli --unsafe-perm
+          command: sudo npm i -g polymer-cli --unsafe-perm
       - run:
           name: Polymer tesst
           command: |
