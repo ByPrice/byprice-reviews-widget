@@ -1,6 +1,6 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/byprice-review-widget.html",
+  "shell": "byprice-review-widget.html",
   "sources": [
     "src/**/*",
     "images/**/*",
