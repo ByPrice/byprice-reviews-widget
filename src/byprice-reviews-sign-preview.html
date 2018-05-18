@@ -442,7 +442,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       _watchRating(rating) {
-        if (!rating) return;
+        if (typeof rating === 'undefined') return;
         var _stars = [];
         for (var i = 0; i < rating; i++) {
           _stars.push({
@@ -465,6 +465,16 @@ Copyright (c) 2017 ByPrice All rights reserved.
         this.dispatchEvent(new CustomEvent('submit-sign', {
           detail: data
         }));
+      }
+
+      reset() {
+        var inputs = [(this.shadowRoot.getElementById('Password') || {}),
+          (this.shadowRoot.getElementById('Name') || {}),
+          (this.shadowRoot.getElementById('Email') || {}),
+          (this.shadowRoot.getElementById('PrivateEmail') || {}),
+        ];
+        inputs.forEach((i) => i.value = '');
+        this.set('_signOption', {});
       }
 
     }
