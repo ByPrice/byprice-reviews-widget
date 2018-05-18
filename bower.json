@@ -9,6 +9,9 @@
     "url":
     "git://git@github.com:ByPrice/byprice-reviews-widget.git"
   },
+  "main": [
+    "byprice-reviews-widget.html"
+  ],
   "dependencies": {
     "iron-a11y-keys-behavior": "^2.1.1",
     "iron-ajax": "^2.1.3",
