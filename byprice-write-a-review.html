@@ -254,7 +254,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
           errors++;
           this.set('errors.rating', true);
         }
-        console.log(this.rating, this.message)
         if (errors) return;
         this.dispatchEvent(new CustomEvent('submit-review', {
           detail: {
@@ -302,7 +301,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       _watchMessage(message) {
-        console.log('_watchMessage', message)
         if (typeof message === 'undefined') return
         this.$.Review.value = message;
       }
