@@ -157,7 +157,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
           </span>
           <div class="message-likes flex flex-v-center">
             <div class="like-wrapper">
-              <i class="like">
+              <i class="like" on-tap="_onTapLike">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
                   style="enable-background:new 0 0 24 24;" xml:space="preserve">
                   <g id="thumbup">
@@ -172,7 +172,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
               <span>[[likes]]</span>
             </div>
             <div class="dislike-wrapper">
-              <i class="dislike">
+              <i class="dislike" on-tap="_onTapDislike">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24"
                   style="enable-background:new 0 0 24 24;" xml:space="preserve">
                   <g id="thumbup">
@@ -208,10 +208,22 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       /**
+       * Fired when user taps like icon
+       * @event like
+       */
+      /**
+       * Fired when user taps dislike icon
+       * @event dislike 
+       */
+
+      /**
        * Declare properties for the element's public API
        */
       static get properties() {
         return {
+          id: {
+            type: String
+          },
           userImage: {
             type: String,
             value: ''
@@ -283,6 +295,22 @@ Copyright (c) 2017 ByPrice All rights reserved.
           filled: i < rating
         })
         this.set('_rating', _rating);
+      }
+
+      _onTapLike() {
+        this.dispatchEvent(new CustomEvent('like', {
+          detail: {
+            id: this.id
+          }
+        }));
+      }
+
+      _onTapDislike() {
+        this.dispatchEvent(new CustomEvent('dislike', {
+          detail: {
+            id: this.id
+          }
+        }));
       }
 
     }
