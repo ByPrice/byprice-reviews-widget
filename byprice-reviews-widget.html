@@ -330,13 +330,13 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       _onDislike(e, details) {
-        this.dispatchEvent(new CustomEvent('like', {
+        this.dispatchEvent(new CustomEvent('dislike', {
           detail: details
         }));
       }
 
       _onLike(e, details) {
-        this.dispatchEvent(new CustomEvent('dislike', {
+        this.dispatchEvent(new CustomEvent('like', {
           detail: details
         }));
       }
