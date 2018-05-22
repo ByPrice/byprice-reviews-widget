@@ -457,7 +457,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
       _getFirstLetters() {
         if (!this.userFirstName && !this.userLastName && !this.userEmail) return;
         var letters = '';
-        if (this.userEmail) letters = this.userEmail.length > 2 ? letters.substring(0, 2) : letters;
+        if (this.userEmail) letters = this.userEmail.length > 2 ? this.userEmail.substring(0, 2) : this.userEmail;
         if (this.userFirstName && this.userLastName) {
           letters = this.userFirstName[0] + this.userLastName[0];
         } else if (this.userFirstName) {
