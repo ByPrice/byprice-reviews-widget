@@ -164,6 +164,12 @@ Copyright (c) 2017 ByPrice All rights reserved.
         animation: wave 350ms ease-in-out 1;
       }
 
+      .amount {
+        width: 25px;
+        height: 100%;
+        display: inline-block;
+      }
+
       @-webkit-keyframes wave {
         0% {
           transform: scale(0);
@@ -314,9 +320,11 @@ Copyright (c) 2017 ByPrice All rights reserved.
                   </g>
                 </svg>
               </i>
-              <template is="dom-if" if="[[likes]]">
-                <span>[[likes]]</span>
-              </template>
+              <span class="amount">
+                <template is="dom-if" if="[[likes]]">
+                  <span>[[likes]]</span>
+                </template>
+              </span>
             </div>
             <div class$="dislike-wrapper [[_dislikeClicked]] [[_checkActiveLike(dislikeActive, 'dislike')]]">
               <span class="wave" style="background-color: #C74352;"></span>
@@ -332,9 +340,11 @@ Copyright (c) 2017 ByPrice All rights reserved.
                   </g>
                 </svg>
               </i>
-              <template is="dom-if" if="[[dislikes]]">
-                <span>[[dislikes]]</span>
-              </template>
+              <span class="amount">
+                <template is="dom-if" if="[[dislikes]]">
+                  <span>[[dislikes]]</span>
+                </template>
+              </span>
             </div>
           </div>
         </div>
