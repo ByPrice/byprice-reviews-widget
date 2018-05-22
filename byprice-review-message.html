@@ -472,7 +472,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
         this.dispatchEvent(new CustomEvent('like', {
           detail: {
             id: this.id,
-            active: this.likeActive
+            active: this.likeActive,
+            dislikeActive: this.dislikeActive
           }
         }));
       }
@@ -489,7 +490,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
         this.dispatchEvent(new CustomEvent('dislike', {
           detail: {
             id: this.id,
-            active: this.dislikeActive
+            active: this.dislikeActive,
+            likeActive: this.likeActive
           }
         }));
       }
