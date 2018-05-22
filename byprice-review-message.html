@@ -129,12 +129,12 @@ Copyright (c) 2017 ByPrice All rights reserved.
             <div class="picture" style="background-image: url([[userImage]])"></div>
           </template>
           <template is="dom-if" if="[[_invert(userImage)]]">
-            <span class="initials">[[_getFirstLetters(userFirstName, userLastName)]]</span>
+            <span class="initials">[[_getFirstLetters()]]</span>
           </template>
         </figure>
         <div>
           <div>
-            <span>[[userName]]</span>&nbsp;
+            <span>[[userFirstName]]</span>&nbsp;
             <span class="date">[[date]]</span>
           </div>
           <div class="flex flex-v-center">
@@ -263,15 +263,15 @@ Copyright (c) 2017 ByPrice All rights reserved.
         return !Boolean(value);
       }
 
-      _getFirstLetters(firstName, lastName) {
-        if (!firstName && !lastName) return;
+      _getFirstLetters() {
+        if (!this.userFirstName && !this.userLastName) return;
         var letters = '';
-        if (firstName && lastName) {
-          letters = firstName[0] + lastName[0];
+        if (this.userFirstName && this.userLastName) {
+          letters = this.userFirstName[0] + this.userLastName[0];
         } else {
-          letters = firstName.substring(0, 2)
+          letters = this.userFirstName.substring(0, 2)
         }
-        return letters; 
+        return letters;
       }
 
       _watchRating(rating) {
