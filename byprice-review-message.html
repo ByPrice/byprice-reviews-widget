@@ -129,7 +129,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
             <div class="picture" style="background-image: url([[userImage]])"></div>
           </template>
           <template is="dom-if" if="[[_invert(userImage)]]">
-            <span class="initials">[[_getFirstLetters(userName)]]</span>
+            <span class="initials">[[_getFirstLetters(userFirstName, userLastName)]]</span>
           </template>
         </figure>
         <div>
@@ -217,8 +217,13 @@ Copyright (c) 2017 ByPrice All rights reserved.
           hasStories: {
             type: Boolean
           },
-          userName: {
-            type: String
+          userFirstName: {
+            type: String,
+            value: ''
+          },
+          userLastName: {
+            type: String,
+            value: ''
           },
           rating: {
             type: Number,
@@ -258,10 +263,15 @@ Copyright (c) 2017 ByPrice All rights reserved.
         return !Boolean(value);
       }
 
-      _getFirstLetters(name) {
-        if (!name) return;
-        var names = name.split(' ');
-        return names.length > 1 ? names[0][0] + names[1][0] : name.substring(0, 2);
+      _getFirstLetters(firstName, lastName) {
+        if (!firstName && !lastName) return;
+        var letters = '';
+        if (firstName && lastName) {
+          letters = firstName[0] + lastName[0];
+        } else {
+          letters = firstName.substring(0, 2)
+        }
+        return letters; 
       }
 
       _watchRating(rating) {
