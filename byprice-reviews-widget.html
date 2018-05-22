@@ -174,7 +174,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!--Write a review -->
         <template is="dom-if" if="[[_invert(showPreview)]]">
           <div class="write-a-review">
-            <byprice-write-a-review rating="{{rating}}" user="[[user]]" token="[[token]]" on-submit-review="_onSubmitReview" message="{{message}}"></byprice-write-a-review>
+            <byprice-write-a-review rating="{{rating}}" user="[[user]]" on-submit-review="_onSubmitReview" message="{{message}}"></byprice-write-a-review>
           </div>
         </template>
         <!--End - Write a review -->
@@ -241,9 +241,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
           user: {
             type: Object
           },
-          token: {
-            type: String
-          },
           item: {
             type: Object
           },
@@ -288,7 +285,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         if (this.loader) return;
         var error = 0
         this.set('send', details);
-        if (!this.user || !this.token) {
+        if (!this.user) {
           this.set('showPreview', true);
         } else {
           this.dispatchEvent(new CustomEvent('submit-review', {
