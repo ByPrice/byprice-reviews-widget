@@ -314,7 +314,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
                   </g>
                 </svg>
               </i>
-              <span>[[likes]]</span>
+              <template is="dom-if" if="[[likes]]">
+                <span>[[likes]]</span>
+              </template>
             </div>
             <div class$="dislike-wrapper [[_dislikeClicked]] [[_checkActiveLike(dislikeActive, 'dislike')]]">
               <span class="wave" style="background-color: #C74352;"></span>
@@ -330,7 +332,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
                   </g>
                 </svg>
               </i>
-              <span>[[dislikes]]</span>
+              <template is="dom-if" if="[[dislikes]]">
+                <span>[[dislikes]]</span>
+              </template>
             </div>
           </div>
         </div>
