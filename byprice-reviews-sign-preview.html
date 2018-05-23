@@ -140,6 +140,32 @@ Copyright (c) 2017 ByPrice All rights reserved.
         margin: 20px 0;
       }
 
+      .sign-content-option label, .sign-content-option button {
+        display: inline-block;
+        margin: 5px 0;
+      }
+
+      .sign-content-option > h3 {
+        color: #960062;
+        font-weight: 400;
+        font-size: 16px;
+        margin: 25px 0 15px 0;
+        text-align: left;
+      }
+
+      .sign-content-option > small {
+        display: inline-block;
+        margin: 25px 0 0 0;
+        font-size: 12px;
+        padding: 0;
+        color: #989898;
+      }
+
+      .sign-content-option small a, .sign-content-option small a:visited {
+        color: #989898;
+        text-decoration: underline;
+      }
+
       button {
         width: 92px;
         height: 35px;
@@ -337,7 +363,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Byprice -->
         <template is="dom-if" if="[[_signOption.byprice]]">
           <div class="sign-content-option">
-            <form class="flex flex-v-start" on-submit="_onSubmit" data-form="byprice">
+            <h3>Iniciar sesión o regístrate</h3>
+            <form class="flex flex-v-start flex-multy" on-submit="_onSubmit" data-form="byprice"> 
               <label>
                 <input id="Email" type="email" placeholder="Correo electrónico" required />
               </label>
@@ -346,13 +373,15 @@ Copyright (c) 2017 ByPrice All rights reserved.
               </label>
               <button type="submit">Publicar</button>
             </form>
+            <small>Al registrarte estás aceptando los <a href="/terminos-y-condiciones">términos y condiciones de ByPrice.</a></small>
           </div>
         </template>
         <!--End - Byprice -->
         <!-- Private -->
         <template is="dom-if" if="[[_signOption.private]]">
           <div class="sign-content-option">
-            <form class="flex flex-v-start" on-submit="_onSubmit" data-form="private">
+            <h3>Pública un comentario como invitado sólo con tu correo.</h3>
+            <form class="flex flex-v-start flex-multy" on-submit="_onSubmit" data-form="private">
               <label>
                 <input id="fullName" type="name" placeholder="Nombre" />
                 <small>Opcional</small>
