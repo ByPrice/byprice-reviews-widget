@@ -161,10 +161,14 @@ Copyright (c) 2017 ByPrice All rights reserved.
         </template>
       </div>
       <!-- End - reviews -->
-
-      <div class="view-all">
-        <span on-tpa="_viewAll">Ver todas las reseñas</span>
-      </div>
+      
+      <!-- View all -->
+      <template is="dom-if" if="[[showAllButton]]">
+        <div class="view-all">
+          <span on-tap="_viewAll">Ver todas las reseñas</span>
+        </div>
+      </template>
+      <!-- End - View all -->
 
       <div class="forms-wrapper">
         <template is="dom-if" if="[[loader]]">
@@ -273,6 +277,10 @@ Copyright (c) 2017 ByPrice All rights reserved.
             type: Array,
             value: [],
             notify: true
+          },
+          showAllButton: {
+            type: Boolean,
+            value: false
           },
           /* Private */
           _stars:  {
