@@ -387,6 +387,10 @@ Copyright (c) 2017 ByPrice All rights reserved.
        * @event submit-sign
        */
       /**
+       * Fired when user change option
+       * @event change-option
+       */
+      /**
        * Declare properties for the element's public API
        */
       static get properties() {
@@ -429,6 +433,11 @@ Copyright (c) 2017 ByPrice All rights reserved.
         var signOption = {};
         signOption[e.currentTarget.dataset.option] = true
         this.set('_signOption', signOption);
+        this.dispatchEvent(new CustomEvent('change-option', {
+          detail: {
+            option: e.currentTarget.dataset.option
+          }
+        }));
       }
 
       _checkActive(signOption, option) {

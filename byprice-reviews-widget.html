@@ -153,9 +153,10 @@ Copyright (c) 2017 ByPrice All rights reserved.
       <div class="reviews">
         <template is="dom-repeat" items="[[reviews]]">
           <div class="review">
-            <byprice-review-message user-image="[[item.userImage]]" user-first-name="[[item.userFirstName]]" user-last-name="[[item.userLastName]]" user-email="[[item.userEmail]]"
-              date="[[item.date]]" message="[[item.message]]" has-stories="[[item.hasStories]]" on-dislike="_onDislike" on-like="_onLike"
-              rating="[[item.rating]]" likes="[[item.likes]]" dislikes="[[item.dislikes]]" id="[[item.id]]" like-active="[[item.likeActive]]" dislike-active="[[item.dislikeActive]]"></byprice-review-message>
+            <byprice-review-message user-image="[[item.userImage]]" user-first-name="[[item.userFirstName]]" user-last-name="[[item.userLastName]]"
+              user-email="[[item.userEmail]]" date="[[item.date]]" message="[[item.message]]" has-stories="[[item.hasStories]]"
+              on-dislike="_onDislike" on-like="_onLike" rating="[[item.rating]]" likes="[[item.likes]]" dislikes="[[item.dislikes]]"
+              id="[[item.id]]" like-active="[[item.likeActive]]" dislike-active="[[item.dislikeActive]]"></byprice-review-message>
           </div>
         </template>
       </div>
@@ -182,7 +183,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Check sign-->
         <template is="dom-if" if="[[showPreview]]">
           <div class="preview">
-            <byprice-reviews-sign-preview id="Preview" rating="{{rating}}" message="[[message]]" show-preview="{{showPreview}}" on-submit-sign="_onSubmitSign"></byprice-reviews-sign-preview>
+            <byprice-reviews-sign-preview id="Preview" rating="{{rating}}" message="[[message]]" show-preview="{{showPreview}}" on-submit-sign="_onSubmitSign"
+              on-change-option="_onChangeOption"></byprice-reviews-sign-preview>
           </div>
         </template>
         <!-- End - Check sign-->
@@ -210,6 +212,10 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
       /**
        * @event submit-review
+       */
+
+      /**
+       * @event change-option
        */
 
       /**
@@ -335,6 +341,12 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
       _onLike(e, details) {
         this.dispatchEvent(new CustomEvent('like', {
+          detail: details
+        }));
+      }
+
+      _onChangeOption(e, details) {
+        this.dispatchEvent(new CustomEvent('change-option', {
           detail: details
         }));
       }
