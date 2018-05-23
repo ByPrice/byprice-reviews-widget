@@ -162,7 +162,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
                 <div class="picture" style="background-image: url([[user.image]])"></div>
               </template>
               <template is="dom-if" if="[[_invert(user.image)]]">
-                <span class="initials">[[_getFirstLetters(user)]]</span>
+                <span class="initials">[[user.firstLetters]]</span>
               </template>
             </figure>
           </div>
@@ -309,19 +309,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
       _invert(value) {
         return !Boolean(value);
       }
-
-      _getFirstLetters(user) {
-        var initials = '';
-        if (!user) return initials;
-        if (user.firstName) {
-          var names = user.firstName.split(' ');
-          initials = names.length > 1 ? names[0][0] + names[1][0] : user.firstName.substring(0, 2);
-        } else if (user.email) {
-          initials = user.email.substring(0, 2);
-        }
-        return initials
-      }
-
 
     }
 
