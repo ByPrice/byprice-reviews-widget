@@ -354,7 +354,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
           <div class="sign-content-option">
             <form class="flex flex-v-start" on-submit="_onSubmit" data-form="private">
               <label>
-                <input id="Name" type="name" placeholder="Nombre" />
+                <input id="fullName" type="name" placeholder="Nombre" />
                 <small>Opcional</small>
               </label>
               <label>
@@ -468,7 +468,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         var data = {
           form: form,
           password: (this.shadowRoot.getElementById('Password') || {}).value,
-          name: (this.shadowRoot.getElementById('Name') || {}).value,
+          fullName: (this.shadowRoot.getElementById('fullName') || {}).value,
           email: (this.shadowRoot.getElementById(form === 'byprice' ? 'Email' : 'PrivateEmail') || {}).value
         }
         this.dispatchEvent(new CustomEvent('submit-sign', {
@@ -478,7 +478,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
       reset() {
         var inputs = [(this.shadowRoot.getElementById('Password') || {}),
-          (this.shadowRoot.getElementById('Name') || {}),
+          (this.shadowRoot.getElementById('fullName') || {}),
           (this.shadowRoot.getElementById('Email') || {}),
           (this.shadowRoot.getElementById('PrivateEmail') || {}),
         ];
