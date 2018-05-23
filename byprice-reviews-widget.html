@@ -7,6 +7,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../polymer/lib/elements/dom-repeat.html">
 <link rel="import" href="../polymer/lib/elements/dom-if.html">
+<link rel="import" href="../polymer/lib/mixins/gesture-event-listeners.html">
 <!-- End - Third party components -->
 
 <!-- Our Components -->
@@ -202,7 +203,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
     /**
      * Class for byprice custom <byprice-reviews-widget></<byprice-reviews-widget>
      */
-    class ByPriceReviewsWidget extends Polymer.Element {
+    class ByPriceReviewsWidget extends Polymer.GestureEventListeners(Polymer.Element) {
       /**
        * Returns component name
        */
