@@ -88,10 +88,53 @@ Copyright (c) 2017 ByPrice All rights reserved.
         z-index: 1;
       }
 
+      .reviews-info-label-wrapper {
+        margin: 15px auto;
+        text-align: center;
+      }
+
+      .reviews-info-label {
+        display: inline-block;
+        padding: 5px 10px;
+        background: #f0f0f0;
+        border: 1px solid #dadada;
+        border-radius: 5px;
+        font-size: 16px;
+        position: relative;
+        color: #686868;
+      }
+
+      .reviews-info-label-message-tail {
+        width: 20px;
+        height: 20px;
+        display: block;
+        position: absolute;
+        bottom: -15px;
+        left: 60px;
+        transform: rotate(-90deg)
+      }
+
+      .reviews-info-label-message-tail svg {
+        fill: #f0f0f0;
+        stroke: #dadada;
+        stroke-width: 1px;
+      }
+
+      .reviews-info-label-message-tail::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 15px;
+        width: 3px;
+        height: 20px;
+        background: #f0f0f0;
+      }
+
       @-webkit-keyframes move {
         0% {
           transform: translateX(0);
         }
+
         100% {
           transform: translateX(calc(100% - 80px));
         }
@@ -101,6 +144,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         0% {
           transform: translateX(0);
         }
+
         100% {
           transform: translateX(calc(100% - 80px));
         }
@@ -126,6 +170,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         animation: slide-in 250ms linear forwards;
         -webkit-animation: slide-in 250ms linear forwards;
       }
+
     </style>
 
     <div class="wrapper">
@@ -154,15 +199,16 @@ Copyright (c) 2017 ByPrice All rights reserved.
       <div class="reviews">
         <template is="dom-repeat" items="[[reviews]]">
           <div class="review">
-            <byprice-review-message user-image="[[item.userImage]]" user-first-name="[[item.userFirstName]]" user-last-name="[[item.userLastName]]"
-              user-email="[[item.userEmail]]" date="[[item.date]]" message="[[item.message]]" has-stories="[[item.hasStories]]"
-              on-dislike="_onDislike" on-like="_onLike" rating="[[item.rating]]" likes="[[item.likes]]" dislikes="[[item.dislikes]]"
-              id="[[item.id]]" like-active="[[item.likeActive]]" dislike-active="[[item.dislikeActive]]"></byprice-review-message>
+            <byprice-review-message user-image="[[item.userImage]]" user-first-name="[[item.userFirstName]]"
+              user-last-name="[[item.userLastName]]" user-email="[[item.userEmail]]" date="[[item.date]]" message="[[item.message]]"
+              has-stories="[[item.hasStories]]" on-dislike="_onDislike" on-like="_onLike" rating="[[item.rating]]"
+              likes="[[item.likes]]" dislikes="[[item.dislikes]]" id="[[item.id]]" like-active="[[item.likeActive]]"
+              dislike-active="[[item.dislikeActive]]"></byprice-review-message>
           </div>
         </template>
       </div>
       <!-- End - reviews -->
-      
+
       <!-- View all -->
       <template is="dom-if" if="[[showAllButton]]">
         <div class="view-all">
@@ -170,6 +216,17 @@ Copyright (c) 2017 ByPrice All rights reserved.
         </div>
       </template>
       <!-- End - View all -->
+
+      <div class="reviews-info-label-wrapper">
+        <div class="reviews-info-label">Escribe tu reseña
+          <i class="reviews-info-label-message-tail">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+              viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+              <path d="M20.4,2.3C16.8,8,9.7,10.4,3.6,7.7c0,0,0,0,0,0c1,5.1,4.7,9.9,10.2,12.4c2.2,1,4.4,1.5,6.6,1.6V2.3z" />
+            </svg>
+          </i>
+        </div>
+      </div>
 
       <div class="forms-wrapper">
         <template is="dom-if" if="[[loader]]">
@@ -188,8 +245,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Check sign-->
         <template is="dom-if" if="[[showPreview]]">
           <div class="preview">
-            <byprice-reviews-sign-preview id="Preview" rating="{{rating}}" message="[[message]]" show-preview="{{showPreview}}" on-submit-sign="_onSubmitSign"
-              on-change-option="_onChangeOption"></byprice-reviews-sign-preview>
+            <byprice-reviews-sign-preview id="Preview" rating="{{rating}}" message="[[message]]" show-preview="{{showPreview}}"
+              on-submit-sign="_onSubmitSign" on-change-option="_onChangeOption"></byprice-reviews-sign-preview>
           </div>
         </template>
         <!-- End - Check sign-->
@@ -288,7 +345,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
             value: false
           },
           /* Private */
-          _stars:  {
+          _stars: {
             type: Array
           }
         }
@@ -302,6 +359,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       _onSubmitReview(e, details) {
+        e.preventDefault();
+        e.stopPropagation();
         if (this.loader) return;
         var error = 0
         this.set('send', details);
@@ -371,5 +430,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
     }
 
     window.customElements.define(ByPriceReviewsWidget.is, ByPriceReviewsWidget);
+
   </script>
 </dom-module>

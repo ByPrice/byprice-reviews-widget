@@ -44,7 +44,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
       textarea {
         width: calc(100% - 30px);
-        min-width: calc(100% - 120px);
+        min-width: 0;
         min-height: 15px;
         padding: 10px 15px 12px 15px;
         height: 15px;
@@ -62,9 +62,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       button {
-        width: 35px;
+        width: 85px;
         height: 35px;
-        background-color: #0084FF;
+        background-color: #31B03E;
         border: none;
         outline: none;
         display: block;
@@ -80,9 +80,11 @@ Copyright (c) 2017 ByPrice All rights reserved.
         -moz-appearance: none;
         padding: 0 5px;
         margin: 0 5px;
-        border-radius: 50%;
+        border-radius: 5px;
         cursor: pointer;
         flex-shrink: 0;
+        color: white;
+        font-size: 16px;
       }
 
       button i {
@@ -115,13 +117,14 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       .user figure {
-        width: 35px;
-        height: 35px;
+        width: 25px;
+        height: 25px;
         margin: 0 5px 0 0;
         color: white;
         border-radius: 50%;
-        background: #E86D9D;
+        background: #A4318A;
         overflow: hidden;
+        position: relative;
       }
 
       .picture {
@@ -132,6 +135,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         -webkit-background-size: cover;
         background-size: cover;
         background-position: center center;
+        position: absolute;
       }
 
       .initials {
@@ -139,6 +143,21 @@ Copyright (c) 2017 ByPrice All rights reserved.
         text-align: center;
         display: inline-block;
         text-transform: uppercase
+      }
+
+      @media only screen and (min-width: 768px) {
+        .user figure {
+          width: 35px;
+          height: 35px;
+        }
+
+        textarea {
+          font-size: 16px;
+        }
+
+        button {
+          font-size: 16px;
+        }
       }
     </style>
 
@@ -161,17 +180,16 @@ Copyright (c) 2017 ByPrice All rights reserved.
               <template is="dom-if" if="[[user.image]]">
                 <div class="picture" style="background-image: url([[user.image]])"></div>
               </template>
-              <template is="dom-if" if="[[_invert(user.image)]]">
-                <span class="initials">[[user.firstLetters]]</span>
-              </template>
+              <span class="initials">[[user.firstLetters]]</span>
             </figure>
           </div>
         </template>
         <textarea placeholder="Escribe tu reseña" id="Review" on-change="_onChangeMessage"></textarea>
         <button class="flex flex-v-center flex-h-center" type="submit">
+          Envíar
           <i>
-            <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-              viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
+            <svg version="1.1" id="icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve">
               <path id="send" d="M21.9,1.9c0.3,0.2,0.4,0.4,0.3,0.7l-2.9,17.6c0,0.2-0.2,0.4-0.4,0.5c-0.1,0.1-0.2,0.1-0.4,0.1
                   c-0.1,0-0.2,0-0.3-0.1l-5.2-2.1L10.4,22c-0.1,0.2-0.3,0.3-0.6,0.3c-0.1,0-0.2,0-0.3,0c-0.1-0.1-0.3-0.1-0.3-0.3
                   c-0.1-0.1-0.1-0.3-0.1-0.4v-4L19,5.4L6.7,16l-4.5-1.9c-0.3-0.1-0.4-0.3-0.5-0.6c0-0.3,0.1-0.5,0.4-0.7l19-11
@@ -200,7 +218,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
 
       /**
        * Fired when user send form with valid message and rating.
-       * @event submit-review 
+       * @event submit-review
        */
       /**
        * Declare properties for the element's public API
@@ -313,5 +331,6 @@ Copyright (c) 2017 ByPrice All rights reserved.
     }
 
     window.customElements.define(ByPriceWriteAReview.is, ByPriceWriteAReview);
+
   </script>
 </dom-module>

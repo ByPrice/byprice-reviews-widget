@@ -34,8 +34,9 @@ Copyright (c) 2017 ByPrice All rights reserved.
         margin: 0 5px 0 0;
         color: white;
         border-radius: 50%;
-        background: #E86D9D;
+        background: #A4318A;
         overflow: hidden;
+        position: relative;
       }
 
       .picture {
@@ -46,6 +47,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         -webkit-background-size: cover;
         background-size: cover;
         background-position: center center;
+        position: absolute;
       }
 
       .message-wrapper {
@@ -278,9 +280,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
           <template is="dom-if" if="[[userImage]]">
             <div class="picture" style="background-image: url([[userImage]])"></div>
           </template>
-          <template is="dom-if" if="[[_invert(userImage)]]">
-            <span class="initials">[[_getFirstLetters()]]</span>
-          </template>
+          <span class="initials">[[_getFirstLetters()]]</span>
         </figure>
         <div>
           <div>
@@ -371,7 +371,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
        */
       /**
        * Fired when user taps dislike icon
-       * @event dislike 
+       * @event dislike
        */
 
       /**
