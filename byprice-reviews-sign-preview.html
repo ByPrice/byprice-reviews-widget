@@ -146,7 +146,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
       }
 
       .sign-content-option > h3 {
-        color: #960062;
+        color: #A4318A;
         font-weight: 400;
         font-size: 16px;
         margin: 25px 0 15px 0;
@@ -156,13 +156,13 @@ Copyright (c) 2017 ByPrice All rights reserved.
       .sign-content-option > small {
         display: inline-block;
         margin: 25px 0 0 0;
-        font-size: 12px;
+        font-size: 16px;
         padding: 0;
         color: #989898;
       }
 
       .sign-content-option small a, .sign-content-option small a:visited {
-        color: #989898;
+        color: #31B03E;
         text-decoration: underline;
       }
 
@@ -170,7 +170,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
         width: 92px;
         height: 35px;
         border: 1px solid transparent;
-        background-color: #960062;
+        background-color: #31B03E;
         border-radius: 5px;
         outline: none;
         color: white;
@@ -303,7 +303,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
           </figure>
           <span>Google</span>
         </button> -->
-        <button class$="byprice flex flex-v-center  [[_checkActive(_signOption, 'byprice')]]" style="background-color: #960062" on-tap="_selectSignOption"
+        <button class$="byprice flex flex-v-center  [[_checkActive(_signOption, 'byprice')]]" style="background-color: #A4318A" on-tap="_selectSignOption"
           data-option="byprice">
           <figure class="flex flex-v-center flex-h-center" style="width: 18px; height: 18px;">
             <svg version="1.1" id="byprice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -363,8 +363,8 @@ Copyright (c) 2017 ByPrice All rights reserved.
         <!-- Byprice -->
         <template is="dom-if" if="[[_signOption.byprice]]">
           <div class="sign-content-option">
-            <h3>Iniciar sesión o regístrate</h3>
-            <form class="flex flex-v-start flex-multy" on-submit="_onSubmit" data-form="byprice"> 
+            <h3>Inicia sesión</h3>
+            <form class="flex flex-v-start flex-multy" on-submit="_onSubmit" data-form="byprice">
               <label>
                 <input id="Email" type="email" placeholder="Correo electrónico" required />
               </label>
@@ -373,7 +373,7 @@ Copyright (c) 2017 ByPrice All rights reserved.
               </label>
               <button type="submit">Publicar</button>
             </form>
-            <small>Al registrarte estás aceptando los <a href="/terminos-y-condiciones" target="_blank">términos y condiciones de ByPrice.</a></small>
+            <small>O <a href="/registrate" target="_blank">Regístrate aquí</a></small>
           </div>
         </template>
         <!--End - Byprice -->
